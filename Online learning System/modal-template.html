@@ -1,0 +1,90 @@
+<!-- Perfect Login/Signup Modal Template - Copy this to all pages -->
+
+<!-- Login Modal -->
+<div id="loginModal" class="modal">
+    <div class="modal-content glass">
+        <span class="close-button" id="closeLoginModal">&times;</span>
+        <div class="modal-header">
+            <div class="modal-icon"><i class="fas fa-sign-in-alt"></i></div>
+            <h2>Welcome Back</h2>
+            <p class="modal-subtitle">Sign in to your account</p>
+        </div>
+        <form id="loginForm">
+            <div class="input-group">
+                <div class="input-icon"><i class="fas fa-envelope"></i></div>
+                <input type="email" id="loginEmail" name="email" placeholder="Enter your email" required>
+                <label for="loginEmail">Email Address</label>
+            </div>
+            <div class="input-group">
+                <div class="input-icon"><i class="fas fa-lock"></i></div>
+                <input type="password" id="loginPassword" name="password" placeholder="Enter your password" required>
+                <label for="loginPassword">Password</label>
+            </div>
+            <div class="form-options">
+                <label class="checkbox-container">
+                    <input type="checkbox" id="rememberMe">
+                    <span class="checkmark"></span>
+                    Remember me
+                </label>
+                <a href="#" class="forgot-password">Forgot Password?</a>
+            </div>
+            <button type="submit" class="cta-button modal-btn">
+                <i class="fas fa-sign-in-alt"></i> Sign In
+            </button>
+            <div class="modal-divider"><span>or</span></div>
+            <button type="button" class="social-btn google-btn" id="googleLoginBtn">
+                <i class="fab fa-google"></i> Continue with Google
+            </button>
+            <p class="modal-switch">Don't have an account? <a href="#" id="switchToSignup">Create Account</a></p>
+        </form>
+    </div>
+</div>
+
+<!-- Signup Modal -->
+<div id="signupModal" class="modal">
+    <div class="modal-content glass">
+        <span class="close-button" id="closeSignupModal">&times;</span>
+        <div class="modal-header">
+            <div class="modal-icon"><i class="fas fa-user-plus"></i></div>
+            <h2>Join Us Today</h2>
+            <p class="modal-subtitle">Create your learning account</p>
+        </div>
+        <form id="signupForm">
+            <div class="input-group">
+                <div class="input-icon"><i class="fas fa-user"></i></div>
+                <input type="text" id="signupName" name="name" placeholder="Enter your full name" required>
+                <label for="signupName">Full Name</label>
+            </div>
+            <div class="input-group">
+                <div class="input-icon"><i class="fas fa-envelope"></i></div>
+                <input type="email" id="signupEmail" name="email" placeholder="Enter your email" required>
+                <label for="signupEmail">Email Address</label>
+            </div>
+            <div class="input-group">
+                <div class="input-icon"><i class="fas fa-lock"></i></div>
+                <input type="password" id="signupPassword" name="password" placeholder="Create a password" required>
+                <label for="signupPassword">Password</label>
+            </div>
+            <div class="input-group">
+                <div class="input-icon"><i class="fas fa-lock"></i></div>
+                <input type="password" id="signupConfirmPassword" name="confirmPassword" placeholder="Confirm your password" required>
+                <label for="signupConfirmPassword">Confirm Password</label>
+            </div>
+            <div class="form-options">
+                <label class="checkbox-container">
+                    <input type="checkbox" id="agreeTerms" required>
+                    <span class="checkmark"></span>
+                    I agree to the <a href="#">Terms & Conditions</a>
+                </label>
+            </div>
+            <button type="submit" class="cta-button modal-btn">
+                <i class="fas fa-user-plus"></i> Create Account
+            </button>
+            <div class="modal-divider"><span>or</span></div>
+            <button type="button" class="social-btn google-btn" id="googleSignupBtn">
+                <i class="fab fa-google"></i> Sign up with Google
+            </button>
+            <p class="modal-switch">Already have an account? <a href="#" id="switchToLogin">Sign In</a></p>
+        </form>
+    </div>
+</div>

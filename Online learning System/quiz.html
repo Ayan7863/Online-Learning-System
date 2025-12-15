@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz - Digital Learning</title>
+    <link rel="stylesheet" href="style-dark.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="page-loader" id="pageLoader">
+        <div class="loader"></div>
+        <p style="color: var(--text-secondary); margin-top: 1rem;">Loading your learning experience...</p>
+    </div>
+    
+    <header>
+        <nav>
+            <div class="logo"><a href="index.html" style="color: white; text-decoration: none;"><i class="fas fa-rocket"></i> EduTech</a></div>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li class="dropdown">
+                    <a href="features.html" class="active">Features</a>
+                                        <div class="dropdown-content">
+                        <a href="video-lessons.html"><i class="fas fa-play-circle"></i> Video Lessons</a>
+                        <a href="timetable-planner.html"><i class="fas fa-calendar-alt"></i> Timetable Planner</a>
+                        <a href="ai-practice.html"><i class="fas fa-brain"></i> AI Practice</a>
+                        <a href="virtual-classroom.html"><i class="fas fa-video"></i> Virtual Classroom</a>
+                        <a href="books.html"><i class="fas fa-book"></i> Book Library</a>
+                        <a href="quiz.html"><i class="fas fa-question-circle"></i> Quiz</a>
+                    </div>
+                </li>
+                <li><a href="courses.html">Our Courses</a></li>
+                <li><a href="how-it-works.html">How It Works</a></li>
+                <li><a href="for-educators.html">For Educators</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li class="auth-buttons"><button id="loginBtnNav" class="nav-button">Login</button></li>
+                <li class="auth-buttons"><button id="signupBtnNav" class="nav-button">Sign Up</button></li>
+                                <li class="profile-menu">
+                    <button id="profileBtn" class="nav-button"><i class="fas fa-user"></i></button>
+                    <div class="profile-dropdown">
+                        <div class="profile-info">
+                            <div class="profile-avatar"><i class="fas fa-user"></i></div>
+                            <h4 class="profile-name">Student User</h4>
+                            <p class="profile-email">student@edutech.com</p>
+                        </div>
+                        <ul class="profile-links">
+                            <li><a href="profile.html"><i class="fas fa-user-cog"></i> My Profile</a></li>
+                            <li><a href="#"><i class="fas fa-chart-line"></i> Progress</a></li>
+                            <li><a href="#"><i class="fas fa-bookmark"></i> Bookmarks</a></li>
+                            <li><a href="#"><i class="fas fa-cog"></i> Settings</a></li>
+                            <li><a href="#" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="quiz-section">
+            <div class="quiz-container">
+                <div class="quiz-header glass">
+                    <h2><i class="fas fa-brain"></i> Interactive Quiz</h2>
+                    <p>Choose your subject and test your knowledge with our comprehensive quiz system</p>
+                    <div class="subject-cards">
+                        <div class="subject-card" data-subject="mathematics">
+                            <div class="subject-icon"><i class="fas fa-calculator"></i></div>
+                            <h3>Mathematics</h3>
+                            <p>Algebra, Geometry & More</p>
+                        </div>
+                        <div class="subject-card" data-subject="science">
+                            <div class="subject-icon"><i class="fas fa-atom"></i></div>
+                            <h3>Science</h3>
+                            <p>Physics, Chemistry & Biology</p>
+                        </div>
+                        <div class="subject-card" data-subject="programming">
+                            <div class="subject-icon"><i class="fas fa-code"></i></div>
+                            <h3>Programming</h3>
+                            <p>HTML, CSS, JavaScript & Python</p>
+                        </div>
+                        <div class="subject-card" data-subject="english">
+                            <div class="subject-icon"><i class="fas fa-language"></i></div>
+                            <h3>English</h3>
+                            <p>Grammar, Vocabulary & Writing</p>
+                        </div>
+                        <div class="subject-card" data-subject="history">
+                            <div class="subject-icon"><i class="fas fa-globe"></i></div>
+                            <h3>History</h3>
+                            <p>World Events & Civilizations</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="quizContent" class="quiz-content glass" style="display: none;">
+                    <div class="quiz-progress">
+                        <div class="progress-bar">
+                            <div id="progressFill" class="progress-fill"></div>
+                        </div>
+                        <span id="questionCounter">Question 1 of 10</span>
+                    </div>
+
+                    <div class="question-section">
+                        <h3 id="questionText">Question will appear here</h3>
+                        <div id="optionsContainer" class="options-container">
+                            <!-- Options will be populated by JavaScript -->
+                        </div>
+                    </div>
+
+                    <div class="quiz-actions">
+                        <button id="nextQuestion" class="cta-button" disabled>Next Question</button>
+                        <button id="submitQuiz" class="cta-button" style="display: none;">Submit Quiz</button>
+                    </div>
+                </div>
+
+                <div id="quizResults" class="quiz-results glass" style="display: none;">
+                    <div class="results-header">
+                        <i class="fas fa-trophy"></i>
+                        <h2>Quiz Complete!</h2>
+                    </div>
+                    <div class="score-display">
+                        <div class="score-circle">
+                            <span id="finalScore">0%</span>
+                        </div>
+                        <p id="scoreMessage">Great job!</p>
+                    </div>
+                    <div class="results-details">
+                        <div class="result-stat">
+                            <span class="stat-label">Correct Answers</span>
+                            <span id="correctCount" class="stat-value">0</span>
+                        </div>
+                        <div class="result-stat">
+                            <span class="stat-label">Total Questions</span>
+                            <span id="totalCount" class="stat-value">10</span>
+                        </div>
+                        <div class="result-stat">
+                            <span class="stat-label">Time Taken</span>
+                            <span id="timeTaken" class="stat-value">0:00</span>
+                        </div>
+                    </div>
+                    <button id="retakeQuiz" class="cta-button">Take Another Quiz</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3><i class="fas fa-rocket"></i> EduTech</h3>
+                <p>Revolutionizing education through AI-powered personalized learning experiences.</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>Privacy Policy | Terms of Service</p>
+        </div>
+    </footer>
+
+    <script src="script-enhanced.js"></script>
+    <script>
+        let currentQuiz = [];
+        let currentQuestion = 0;
+        let score = 0;
+        let startTime = null;
+
+        const quizData = {
+            mathematics: [
+                { question: "What is 15 + 27?", options: ["42", "41", "43", "40"], correct: 0 },
+                { question: "Solve: 2x + 5 = 13", options: ["4", "3", "5", "6"], correct: 0 },
+                { question: "What is 8 × 7?", options: ["54", "56", "58", "52"], correct: 1 },
+                { question: "What is √64?", options: ["6", "7", "8", "9"], correct: 2 },
+                { question: "What is 25% of 80?", options: ["15", "20", "25", "30"], correct: 1 }
+            ],
+            science: [
+                { question: "What is H2O?", options: ["Hydrogen", "Water", "Oxygen", "Carbon"], correct: 1 },
+                { question: "Closest planet to Sun?", options: ["Venus", "Mercury", "Earth", "Mars"], correct: 1 },
+                { question: "What gas do plants absorb?", options: ["Oxygen", "Nitrogen", "Carbon Dioxide", "Hydrogen"], correct: 2 },
+                { question: "Speed of light?", options: ["300,000 km/s", "150,000 km/s", "450,000 km/s", "200,000 km/s"], correct: 0 },
+                { question: "Largest organ in human body?", options: ["Heart", "Brain", "Liver", "Skin"], correct: 3 }
+            ],
+            programming: [
+                { question: "What does HTML stand for?", options: ["Hypertext Markup Language", "High Tech Modern Language", "Home Tool Markup Language", "Hyperlink Text Markup Language"], correct: 0 },
+                { question: "Which is a programming language?", options: ["HTML", "CSS", "Python", "XML"], correct: 2 },
+                { question: "What is a variable?", options: ["A constant value", "A storage location", "A function", "A loop"], correct: 1 },
+                { question: "What does CSS stand for?", options: ["Computer Style Sheets", "Cascading Style Sheets", "Creative Style Sheets", "Colorful Style Sheets"], correct: 1 },
+                { question: "Which symbol starts a comment in Python?", options: ["//", "/*", "#", "<!--"], correct: 2 }
+            ],
+            english: [
+                { question: "What is the plural of 'child'?", options: ["childs", "children", "childes", "child"], correct: 1 },
+                { question: "Which is a noun?", options: ["run", "quickly", "book", "beautiful"], correct: 2 },
+                { question: "What is a synonym for 'happy'?", options: ["sad", "angry", "joyful", "tired"], correct: 2 },
+                { question: "Which is correct?", options: ["I have went", "I have gone", "I has gone", "I had went"], correct: 1 },
+                { question: "What is an adjective?", options: ["Action word", "Describing word", "Person/place/thing", "Connecting word"], correct: 1 }
+            ],
+            history: [
+                { question: "When did World War II end?", options: ["1944", "1945", "1946", "1947"], correct: 1 },
+                { question: "Who was the first US President?", options: ["Thomas Jefferson", "John Adams", "George Washington", "Benjamin Franklin"], correct: 2 },
+                { question: "Which empire built Machu Picchu?", options: ["Aztec", "Maya", "Inca", "Olmec"], correct: 2 },
+                { question: "When did the Berlin Wall fall?", options: ["1987", "1988", "1989", "1990"], correct: 2 },
+                { question: "Who painted the Mona Lisa?", options: ["Michelangelo", "Leonardo da Vinci", "Raphael", "Donatello"], correct: 1 }
+            ]
+        };
+
+        // Add click handlers for subject cards
+        document.querySelectorAll('.subject-card').forEach(card => {
+            card.addEventListener('click', () => {
+                document.querySelectorAll('.subject-card').forEach(c => c.classList.remove('selected'));
+                card.classList.add('selected');
+                const subject = card.dataset.subject;
+                setTimeout(() => startQuiz(subject), 500);
+            });
+        });
+        document.getElementById('nextQuestion').addEventListener('click', nextQuestion);
+        document.getElementById('submitQuiz').addEventListener('click', submitQuiz);
+        document.getElementById('retakeQuiz').addEventListener('click', resetQuiz);
+
+        function startQuiz(subject) {
+            if (!subject) {
+                const selectedCard = document.querySelector('.subject-card.selected');
+                subject = selectedCard ? selectedCard.dataset.subject : 'mathematics';
+            }
+            currentQuiz = [...quizData[subject]];
+            currentQuestion = 0;
+            score = 0;
+            startTime = new Date();
+            
+            document.querySelector('.quiz-header').style.display = 'none';
+            document.getElementById('quizContent').style.display = 'block';
+            
+            showQuestion();
+        }
+
+        function showQuestion() {
+            const question = currentQuiz[currentQuestion];
+            document.getElementById('questionText').textContent = question.question;
+            document.getElementById('questionCounter').textContent = `Question ${currentQuestion + 1} of ${currentQuiz.length}`;
+            
+            const progress = ((currentQuestion + 1) / currentQuiz.length) * 100;
+            document.getElementById('progressFill').style.width = progress + '%';
+            
+            const container = document.getElementById('optionsContainer');
+            container.innerHTML = '';
+            
+            question.options.forEach((option, index) => {
+                const button = document.createElement('button');
+                button.className = 'option-btn';
+                button.textContent = option;
+                button.addEventListener('click', () => selectOption(index));
+                container.appendChild(button);
+            });
+            
+            document.getElementById('nextQuestion').disabled = true;
+        }
+
+        function selectOption(selectedIndex) {
+            const buttons = document.querySelectorAll('.option-btn');
+            buttons.forEach(btn => btn.classList.remove('selected'));
+            buttons[selectedIndex].classList.add('selected');
+            
+            if (selectedIndex === currentQuiz[currentQuestion].correct) {
+                score++;
+            }
+            
+            document.getElementById('nextQuestion').disabled = false;
+            
+            if (currentQuestion === currentQuiz.length - 1) {
+                document.getElementById('nextQuestion').style.display = 'none';
+                document.getElementById('submitQuiz').style.display = 'block';
+            }
+        }
+
+        function nextQuestion() {
+            currentQuestion++;
+            showQuestion();
+        }
+
+        function submitQuiz() {
+            const endTime = new Date();
+            const timeTaken = Math.floor((endTime - startTime) / 1000);
+            const percentage = Math.round((score / currentQuiz.length) * 100);
+            
+            document.getElementById('quizContent').style.display = 'none';
+            document.getElementById('quizResults').style.display = 'block';
+            
+            document.getElementById('finalScore').textContent = percentage + '%';
+            document.getElementById('correctCount').textContent = score;
+            document.getElementById('totalCount').textContent = currentQuiz.length;
+            document.getElementById('timeTaken').textContent = Math.floor(timeTaken / 60) + ':' + (timeTaken % 60).toString().padStart(2, '0');
+            
+            let message = '';
+            if (percentage >= 90) message = 'Excellent! Outstanding performance!';
+            else if (percentage >= 70) message = 'Great job! Well done!';
+            else if (percentage >= 50) message = 'Good effort! Keep practicing!';
+            else message = 'Keep learning! You can do better!';
+            
+            document.getElementById('scoreMessage').textContent = message;
+        }
+
+        function resetQuiz() {
+            document.getElementById('quizResults').style.display = 'none';
+            document.querySelector('.quiz-header').style.display = 'block';
+            document.getElementById('nextQuestion').style.display = 'block';
+            document.getElementById('submitQuiz').style.display = 'none';
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Library - <i class="fas fa-rocket"></i> EduTech</title>
+    <link rel="stylesheet" href="style-dark.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Perfect Loading Screen -->
+    <div class="page-loader" id="pageLoader">
+        <div class="loader"></div>
+        <p style="color: var(--text-secondary); margin-top: 1rem;">Loading your learning experience...</p>
+    </div>
+    
+    <header>
+        <nav>
+            <div class="logo"><a href="index.html" style="color: #f2f9f1; text-decoration: none;"><i class="fas fa-rocket"></i> EduTech</a></div>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li class="dropdown">
+                    <a href="features.html" class="active">Features</a>
+                                        <div class="dropdown-content">
+                        <a href="video-lessons.html"><i class="fas fa-play-circle"></i> Video Lessons</a>
+                        <a href="timetable-planner.html"><i class="fas fa-calendar-alt"></i> Timetable Planner</a>
+                        <a href="ai-practice.html"><i class="fas fa-brain"></i> AI Practice</a>
+                        <a href="virtual-classroom.html"><i class="fas fa-video"></i> Virtual Classroom</a>
+                        <a href="books.html"><i class="fas fa-book"></i> Book Library</a>
+                        <a href="quiz.html"><i class="fas fa-question-circle"></i> Quiz</a>
+                    </div>
+                </li>
+                <li><a href="courses.html">Our Courses</a></li>
+                <li><a href="how-it-works.html">How It Works</a></li>
+                <li><a href="for-educators.html">For Educators</a></li>
+                
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li class="auth-buttons"><button id="loginBtnNav" class="nav-button">Login</button></li>
+                <li class="auth-buttons"><button id="signupBtnNav" class="nav-button">Sign Up</button></li>
+                                <li class="profile-menu">
+                    <button id="profileBtn" class="nav-button"><i class="fas fa-user"></i></button>
+                    <div class="profile-dropdown">
+                        <div class="profile-info">
+                            <div class="profile-avatar"><i class="fas fa-user"></i></div>
+                            <h4 class="profile-name">Student User</h4>
+                            <p class="profile-email">student@edutech.com</p>
+                        </div>
+                        <ul class="profile-links">
+                            <li><a href="profile.html"><i class="fas fa-user-cog"></i> My Profile</a></li>
+                            <li><a href="#"><i class="fas fa-chart-line"></i> Progress</a></li>
+                            <li><a href="#"><i class="fas fa-bookmark"></i> Bookmarks</a></li>
+                            <li><a href="#"><i class="fas fa-cog"></i> Settings</a></li>
+                            <li><a href="#" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <!-- Login Modal -->
+        <div id="loginModal" class="modal">
+            <div class="modal-content glass">
+                <span class="close-button" id="closeLoginModal">&times;</span>
+                <div class="modal-header">
+                    <div class="modal-icon"><i class="fas fa-sign-in-alt"></i></div>
+                    <h2>Welcome Back</h2>
+                    <p class="modal-subtitle">Sign in to your account</p>
+                </div>
+                <form id="loginForm">
+                    <div>
+                        
+                        <div class="input-group">
+                        <div class="input-icon"><i class="fas fa-envelope"></i></div>
+                        <input type="email" id="loginEmail" name="email" placeholder="Enter your email" required>
+                    </div>
+                    </div>
+                    <div>
+                        
+                        <div class="input-group">
+                        <div class="input-icon"><i class="fas fa-lock"></i></div>
+                        <input type="password" id="loginPassword" name="password" placeholder="Enter your password" required>
+                    </div>
+                    </div>
+                    <button type="submit" class="cta-button">Login</button>
+                    <p class="modal-switch">Don't have an account? <a href="#" id="switchToSignup">Sign Up</a></p>
+                </form>
+            </div>
+        </div>
+
+        <!-- Signup Modal -->
+        <div id="signupModal" class="modal">
+            <div class="modal-content glass">
+                <span class="close-button" id="closeSignupModal">&times;</span>
+                <div class="modal-header">
+                    <div class="modal-icon"><i class="fas fa-user-plus"></i></div>
+                    <h2>Join Us Today</h2>
+                    <p class="modal-subtitle">Create your learning account</p>
+                </div>
+                <form id="signupForm">
+                    <div>
+                        
+                        <input type="text" id="signupName" name="name" required>
+                    </div>
+                    <div>
+                        
+                        <input type="email" id="signupEmail" name="email" required>
+                    </div>
+                    <div>
+                        
+                        <input type="password" id="signupPassword" name="password" required>
+                    </div>
+                     <div>
+                        
+                        <input type="password" id="signupConfirmPassword" name="confirmPassword" required>
+                    </div>
+                    <button type="submit" class="cta-button">Sign Up</button>
+                    <p class="modal-switch">Already have an account? <a href="#" id="switchToLogin">Login</a></p>
+                </form>
+            </div>
+        </div>
+
+        <section id="book-library" class="animate-on-scroll">
+            <div class="library-header">
+                <h2><i class="fas fa-book"></i> Explore Our Book Library</h2>
+                <p>Discover a curated collection of books to supplement your learning across various subjects. Expand your knowledge with these recommended reads.</p>
+                <div class="book-categories">
+                    <button class="category-btn active" data-category="all">All Books</button>
+                    <button class="category-btn" data-category="programming">Programming</button>
+                    <button class="category-btn" data-category="science">Science</button>
+                    <button class="category-btn" data-category="mathematics">Mathematics</button>
+                    <button class="category-btn" data-category="history">History</button>
+                </div>
+            </div>
+            
+            <div class="book-gallery course-grid">
+                <div class="course-item book-item glass animate-on-scroll">
+                    <div class="book-cover">
+                        <img src="https://images-na.ssl-images-amazon.com/images/I/51E2055ZGUL._SX258_BO1,204,203,200_.jpg" alt="Concepts of Physics">
+                        <div class="book-overlay">
+                            <i class="fas fa-external-link-alt"></i>
+                        </div>
+                    </div>
+                    <div class="book-info">
+                        <h3>Concepts of Physics</h3>
+                        <p class="author"><i class="fas fa-user"></i> H.C. Verma</p>
+                        <p class="subject"><i class="fas fa-tag"></i> Physics</p>
+                        <a href="https://www.amazon.com/dp/8177091875" class="cta-button-secondary" target="_blank" rel="noopener noreferrer">Find on Amazon</a>
+                    </div>
+                </div>
+                
+                <div class="course-item book-item glass animate-on-scroll">
+                    <div class="book-cover">
+                        <img src="https://images-na.ssl-images-amazon.com/images/I/81YkqyaFVEL.jpg" alt="Python Crash Course">
+                        <div class="book-overlay">
+                            <i class="fas fa-external-link-alt"></i>
+                        </div>
+                    </div>
+                    <div class="book-info">
+                        <h3>Python Crash Course</h3>
+                        <p class="author"><i class="fas fa-user"></i> Eric Matthes</p>
+                        <p class="subject"><i class="fas fa-tag"></i> Programming</p>
+                        <a href="https://www.amazon.com/dp/1593279280" class="cta-button-secondary" target="_blank" rel="noopener noreferrer">Find on Amazon</a>
+                    </div>
+                </div>
+                
+                <div class="course-item book-item glass animate-on-scroll">
+                    <div class="book-cover">
+                        <img src="https://images-na.ssl-images-amazon.com/images/I/713jIoMO3UL.jpg" alt="Sapiens">
+                        <div class="book-overlay">
+                            <i class="fas fa-external-link-alt"></i>
+                        </div>
+                    </div>
+                    <div class="book-info">
+                        <h3>Sapiens: A Brief History</h3>
+                        <p class="author"><i class="fas fa-user"></i> Yuval Noah Harari</p>
+                        <p class="subject"><i class="fas fa-tag"></i> History</p>
+                        <a href="https://www.amazon.com/dp/0062316095" class="cta-button-secondary" target="_blank" rel="noopener noreferrer">Find on Amazon</a>
+                    </div>
+                </div>
+                
+                <div class="course-item book-item glass animate-on-scroll">
+                    <div class="book-cover">
+                        <img src="https://images-na.ssl-images-amazon.com/images/I/51Ga5GuElyL._SX331_BO1,204,203,200_.jpg" alt="Calculus">
+                        <div class="book-overlay">
+                            <i class="fas fa-external-link-alt"></i>
+                        </div>
+                    </div>
+                    <div class="book-info">
+                        <h3>Calculus: Early Transcendentals</h3>
+                        <p class="author"><i class="fas fa-user"></i> James Stewart</p>
+                        <p class="subject"><i class="fas fa-tag"></i> Mathematics</p>
+                        <a href="https://www.amazon.com/dp/1285741552" class="cta-button-secondary" target="_blank" rel="noopener noreferrer">Find on Amazon</a>
+                    </div>
+                </div>
+                
+                <div class="course-item book-item glass animate-on-scroll">
+                    <div class="book-cover">
+                        <img src="https://images-na.ssl-images-amazon.com/images/I/51fKMNjRMaL._SX258_BO1,204,203,200_.jpg" alt="Clean Code">
+                        <div class="book-overlay">
+                            <i class="fas fa-external-link-alt"></i>
+                        </div>
+                    </div>
+                    <div class="book-info">
+                        <h3>Clean Code</h3>
+                        <p class="author"><i class="fas fa-user"></i> Robert C. Martin</p>
+                        <p class="subject"><i class="fas fa-tag"></i> Programming</p>
+                        <a href="https://www.amazon.com/dp/0132350882" class="cta-button-secondary" target="_blank" rel="noopener noreferrer">Find on Amazon</a>
+                    </div>
+                </div>
+                
+                <div class="course-item book-item glass animate-on-scroll">
+                    <div class="book-cover">
+                        <img src="https://images-na.ssl-images-amazon.com/images/I/41VjHOz5gl.jpg" alt="Chemistry">
+                        <div class="book-overlay">
+                            <i class="fas fa-external-link-alt"></i>
+                        </div>
+                    </div>
+                    <div class="book-info">
+                        <h3>Chemistry: The Central Science</h3>
+                        <p class="author"><i class="fas fa-user"></i> Theodore Brown</p>
+                        <p class="subject"><i class="fas fa-tag"></i> Chemistry</p>
+                        <a href="https://www.amazon.com/dp/0134414233" class="cta-button-secondary" target="_blank" rel="noopener noreferrer">Find on Amazon</a>
+                    </div>
+                </div>
+                
+                <div class="course-item book-item glass animate-on-scroll">
+                    <div class="book-cover">
+                        <img src="https://images-na.ssl-images-amazon.com/images/I/51E2055ZGUL._SX258_BO1,204,203,200_.jpg" alt="JavaScript">
+                        <div class="book-overlay">
+                            <i class="fas fa-external-link-alt"></i>
+                        </div>
+                    </div>
+                    <div class="book-info">
+                        <h3>JavaScript: The Good Parts</h3>
+                        <p class="author"><i class="fas fa-user"></i> Douglas Crockford</p>
+                        <p class="subject"><i class="fas fa-tag"></i> Programming</p>
+                        <a href="https://www.amazon.com/dp/0596517742" class="cta-button-secondary" target="_blank" rel="noopener noreferrer">Find on Amazon</a>
+                    </div>
+                </div>
+                
+                <div class="course-item book-item glass animate-on-scroll">
+                    <div class="book-cover">
+                        <img src="https://images-na.ssl-images-amazon.com/images/I/41T0iBxY8FL._SX258_BO1,204,203,200_.jpg" alt="Algorithms">
+                        <div class="book-overlay">
+                            <i class="fas fa-external-link-alt"></i>
+                        </div>
+                    </div>
+                    <div class="book-info">
+                        <h3>Introduction to Algorithms</h3>
+                        <p class="author"><i class="fas fa-user"></i> Thomas Cormen</p>
+                        <p class="subject"><i class="fas fa-tag"></i> Computer Science</p>
+                        <a href="https://www.amazon.com/dp/0262033844" class="cta-button-secondary" target="_blank" rel="noopener noreferrer">Find on Amazon</a>
+                    </div>
+                </div>
+                
+                <div class="course-item book-item glass animate-on-scroll">
+                    <div class="book-cover">
+                        <img src="https://images-na.ssl-images-amazon.com/images/I/51cUVaBWZzL._SX258_BO1,204,203,200_.jpg" alt="Data Structures">
+                        <div class="book-overlay">
+                            <i class="fas fa-external-link-alt"></i>
+                        </div>
+                    </div>
+                    <div class="book-info">
+                        <h3>Data Structures and Algorithms</h3>
+                        <p class="author"><i class="fas fa-user"></i> Michael Goodrich</p>
+                        <p class="subject"><i class="fas fa-tag"></i> Programming</p>
+                        <a href="https://www.amazon.com/dp/1118771338" class="cta-button-secondary" target="_blank" rel="noopener noreferrer">Find on Amazon</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <p></p>
+    </footer>
+    <script src="script-enhanced.js"></script>
+</body>
+</html>

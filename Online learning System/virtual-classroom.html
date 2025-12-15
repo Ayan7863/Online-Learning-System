@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Virtual Classroom - AI Learning Assistant</title>
+    <link rel="stylesheet" href="style-dark.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="page-loader" id="pageLoader">
+        <div class="loader"></div>
+        <p style="color: var(--text-secondary); margin-top: 1rem;">Loading your learning experience...</p>
+    </div>
+    
+    <header>
+        <nav>
+            <div class="logo"><a href="index.html" style="color: white; text-decoration: none;">AI Learning Assistant</a></div>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="virtual-classroom.html">Virtual Classroom</a></li>
+                <li class="auth-buttons"><button id="loginBtnNav" class="nav-button">Login</button></li>
+                <li class="auth-buttons"><button id="signupBtnNav" class="nav-button">Sign Up</button></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="virtual-classroom">
+            <div class="classroom-container">
+                <div class="classroom-header glass">
+                    <h2><i class="fas fa-video"></i> Virtual Classroom</h2>
+                    <div class="classroom-controls">
+                        <button id="startSession" class="cta-button">Start Session</button>
+                        <button id="endSession" class="cta-button-secondary" disabled>End Session</button>
+                    </div>
+                </div>
+
+                <div class="classroom-content">
+                    <div class="video-area glass">
+                        <video id="localVideo" autoplay muted></video>
+                        <div class="video-controls">
+                            <button id="toggleCamera" class="control-btn"><i class="fas fa-video"></i></button>
+                            <button id="toggleMic" class="control-btn"><i class="fas fa-microphone"></i></button>
+                            <button id="shareScreen" class="control-btn"><i class="fas fa-desktop"></i></button>
+                        </div>
+                        <div id="attentionAlert" class="attention-alert" style="display: none;">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            <span>Please focus on the lesson!</span>
+                        </div>
+                    </div>
+
+                    <div class="classroom-sidebar">
+                        <div class="participants glass">
+                            <h3><i class="fas fa-users"></i> Participants</h3>
+                            <div id="participantsList">
+                                <div class="participant">
+                                    <i class="fas fa-user-circle"></i>
+                                    <span>You</span>
+                                    <span class="status online"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="chat-panel glass">
+                            <h3><i class="fas fa-comments"></i> Chat</h3>
+                            <div id="chatMessages" class="chat-messages"></div>
+                            <div class="chat-input">
+                                <input type="text" id="messageInput" placeholder="Type a message...">
+                                <button id="sendMessage"><i class="fas fa-paper-plane"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="ai-monitoring glass">
+                    <h3><i class="fas fa-brain"></i> AI Attention Monitor</h3>
+                    <div class="monitoring-stats">
+                        <div class="stat">
+                            <span class="stat-label">Attention Score</span>
+                            <span id="attentionScore" class="stat-value">100%</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-label">Session Time</span>
+                            <span id="sessionTime" class="stat-value">00:00</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-label">Focus Breaks</span>
+                            <span id="focusBreaks" class="stat-value">0</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3><i class="fas fa-brain"></i> AI Learning Assistant</h3>
+                <p>Revolutionizing education through AI-powered personalized learning experiences.</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>Privacy Policy | Terms of Service</p>
+        </div>
+    </footer>
+
+    <script src="script-enhanced.js"></script>
+    <script>
+        let isSessionActive = false;
+        let attentionScore = 100;
+        let sessionStartTime = null;
+        let focusBreakCount = 0;
+        let attentionInterval = null;
+
+        // Virtual Classroom functionality
+        document.getElementById('startSession').addEventListener('click', startSession);
+        document.getElementById('endSession').addEventListener('click', endSession);
+        document.getElementById('sendMessage').addEventListener('click', sendChatMessage);
+        document.getElementById('messageInput').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') sendChatMessage();
+        });
+
+        async function startSession() {
+            try {
+                const stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
+                document.getElementById('localVideo').srcObject = stream;
+                
+                isSessionActive = true;
+                sessionStartTime = new Date();
+                
+                document.getElementById('startSession').disabled = true;
+                document.getElementById('endSession').disabled = false;
+                
+                startAttentionMonitoring();
+                startSessionTimer();
+                
+                addChatMessage('System', 'Session started. AI monitoring is active.');
+            } catch (error) {
+                alert('Camera/microphone access required for virtual classroom');
+            }
+        }
+
+        function endSession() {
+            const video = document.getElementById('localVideo');
+            if (video.srcObject) {
+                video.srcObject.getTracks().forEach(track => track.stop());
+            }
+            
+            isSessionActive = false;
+            clearInterval(attentionInterval);
+            
+            document.getElementById('startSession').disabled = false;
+            document.getElementById('endSession').disabled = true;
+            
+            addChatMessage('System', 'Session ended.');
+        }
+
+        function startAttentionMonitoring() {
+            attentionInterval = setInterval(() => {
+                // Simulate attention detection (in real implementation, use face detection)
+                const randomFactor = Math.random();
+                
+                if (randomFactor < 0.1) { // 10% chance of distraction
+                    attentionScore = Math.max(0, attentionScore - 10);
+                    focusBreakCount++;
+                    showAttentionAlert();
+                    document.getElementById('focusBreaks').textContent = focusBreakCount;
+                } else if (attentionScore < 100) {
+                    attentionScore = Math.min(100, attentionScore + 2);
+                }
+                
+                document.getElementById('attentionScore').textContent = attentionScore + '%';
+                
+                // Change color based on attention score
+                const scoreElement = document.getElementById('attentionScore');
+                if (attentionScore >= 80) {
+                    scoreElement.style.color = '#27ae60';
+                } else if (attentionScore >= 60) {
+                    scoreElement.style.color = '#f39c12';
+                } else {
+                    scoreElement.style.color = '#e74c3c';
+                }
+            }, 3000);
+        }
+
+        function showAttentionAlert() {
+            const alert = document.getElementById('attentionAlert');
+            alert.style.display = 'flex';
+            setTimeout(() => {
+                alert.style.display = 'none';
+            }, 3000);
+        }
+
+        function startSessionTimer() {
+            setInterval(() => {
+                if (isSessionActive && sessionStartTime) {
+                    const elapsed = new Date() - sessionStartTime;
+                    const minutes = Math.floor(elapsed / 60000);
+                    const seconds = Math.floor((elapsed % 60000) / 1000);
+                    document.getElementById('sessionTime').textContent = 
+                        `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+                }
+            }, 1000);
+        }
+
+        function sendChatMessage() {
+            const input = document.getElementById('messageInput');
+            const message = input.value.trim();
+            if (message) {
+                addChatMessage('You', message);
+                input.value = '';
+            }
+        }
+
+        function addChatMessage(sender, message) {
+            const chatMessages = document.getElementById('chatMessages');
+            const messageElement = document.createElement('div');
+            messageElement.className = 'chat-message';
+            messageElement.innerHTML = `
+                <strong>${sender}:</strong> ${message}
+                <small>${new Date().toLocaleTimeString()}</small>
+            `;
+            chatMessages.appendChild(messageElement);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        // Camera and mic controls
+        document.getElementById('toggleCamera').addEventListener('click', () => {
+            const video = document.getElementById('localVideo');
+            if (video.srcObject) {
+                const videoTrack = video.srcObject.getVideoTracks()[0];
+                videoTrack.enabled = !videoTrack.enabled;
+                document.getElementById('toggleCamera').innerHTML = 
+                    videoTrack.enabled ? '<i class="fas fa-video"></i>' : '<i class="fas fa-video-slash"></i>';
+            }
+        });
+
+        document.getElementById('toggleMic').addEventListener('click', () => {
+            const video = document.getElementById('localVideo');
+            if (video.srcObject) {
+                const audioTrack = video.srcObject.getAudioTracks()[0];
+                audioTrack.enabled = !audioTrack.enabled;
+                document.getElementById('toggleMic').innerHTML = 
+                    audioTrack.enabled ? '<i class="fas fa-microphone"></i>' : '<i class="fas fa-microphone-slash"></i>';
+            }
+        });
+    </script>
+</body>
+</html>

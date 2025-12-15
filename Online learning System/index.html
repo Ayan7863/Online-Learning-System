@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI-Powered Interactive Learning Assistant</title>
+    <link rel="stylesheet" href="style-dark.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Floating Particles -->
+    <div class="particles">
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+    </div>
+    
+    <!-- Perfect Loading Screen -->
+    <div class="page-loader" id="pageLoader">
+        <div class="loader"></div>
+        <p style="color: var(--text-secondary); margin-top: 1rem;">Loading your learning experience...</p>
+    </div>
+    
+    <header>
+        <nav>
+            <div class="logo"><a href="index.html" style="color: white; text-decoration: none;"><i class="fas fa-rocket"></i> EduTech</a></div>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li class="dropdown">
+                    <a href="features.html">Features</a>
+                                        <div class="dropdown-content">
+                        <a href="video-lessons.html"><i class="fas fa-play-circle"></i> Video Lessons</a>
+                        <a href="timetable-planner.html"><i class="fas fa-calendar-alt"></i> Timetable Planner</a>
+                        <a href="ai-practice.html"><i class="fas fa-brain"></i> AI Practice</a>
+                        <a href="virtual-classroom.html"><i class="fas fa-video"></i> Virtual Classroom</a>
+                        <a href="books.html"><i class="fas fa-book"></i> Book Library</a>
+                        <a href="quiz.html"><i class="fas fa-question-circle"></i> Quiz</a>
+                    </div>
+                </li>
+                <li><a href="courses.html">Our Courses</a></li>
+                <li><a href="how-it-works.html">How It Works</a></li>
+                <li><a href="for-educators.html">For Educators</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li class="auth-buttons"><button id="loginBtnNav" class="nav-button">Login</button></li>
+                <li class="auth-buttons"><button id="signupBtnNav" class="nav-button">Sign Up</button></li>
+                                <li class="profile-menu">
+                    <button id="profileBtn" class="nav-button"><i class="fas fa-user"></i></button>
+                    <div class="profile-dropdown">
+                        <div class="profile-info">
+                            <div class="profile-avatar"><i class="fas fa-user"></i></div>
+                            <h4 class="profile-name">Student User</h4>
+                            <p class="profile-email">student@edutech.com</p>
+                        </div>
+                        <ul class="profile-links">
+                            <li><a href="profile.html"><i class="fas fa-user-cog"></i> My Profile</a></li>
+                            <li><a href="#"><i class="fas fa-chart-line"></i> Progress</a></li>
+                            <li><a href="#"><i class="fas fa-bookmark"></i> Bookmarks</a></li>
+                            <li><a href="#"><i class="fas fa-cog"></i> Settings</a></li>
+                            <li><a href="#" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Login Modal -->
+        <div id="loginModal" class="modal">
+            <div class="modal-content glass">
+                <span class="close-button" id="closeLoginModal">&times;</span>
+                <div class="modal-header">
+                    <div class="modal-icon"><i class="fas fa-sign-in-alt"></i></div>
+                    <h2>Welcome Back</h2>
+                    <p class="modal-subtitle">Sign in to your account</p>
+                </div>
+                <form id="loginForm">
+                    <div class="input-group">
+                        <div class="input-icon"><i class="fas fa-envelope"></i></div>
+                        <input type="email" id="loginEmail" name="email" placeholder="Enter your email" required>
+                    </div>
+                    <div class="input-group">
+                        <div class="input-icon"><i class="fas fa-lock"></i></div>
+                        <input type="password" id="loginPassword" name="password" placeholder="Enter your password" required>
+                    </div>
+                    <div class="form-options">
+                        <label class="checkbox-container">
+                            <input type="checkbox" id="rememberMe">
+                            <span class="checkmark"></span>
+                            Remember me
+                        </label>
+                        <a href="#" class="forgot-password">Forgot Password?</a>
+                    </div>
+                    <button type="submit" class="cta-button modal-btn">
+                        <i class="fas fa-sign-in-alt"></i> Sign In
+                    </button>
+                    <div class="modal-divider"><span>or</span></div>
+                    <button type="button" class="social-btn google-btn" id="googleLoginBtn">
+                        <i class="fab fa-google"></i> Continue with Google
+                    </button>
+                    <p class="modal-switch">Don't have an account? <a href="#" id="switchToSignup">Create Account</a></p>
+                </form>
+            </div>
+        </div>
+
+        <!-- Signup Modal -->
+        <div id="signupModal" class="modal">
+            <div class="modal-content glass">
+                <span class="close-button" id="closeSignupModal">&times;</span>
+                <div class="modal-header">
+                    <div class="modal-icon"><i class="fas fa-user-plus"></i></div>
+                    <h2>Join Us Today</h2>
+                    <p class="modal-subtitle">Create your learning account</p>
+                </div>
+                <form id="signupForm">
+                    <div class="input-group">
+                        <div class="input-icon"><i class="fas fa-user"></i></div>
+                        <input type="text" id="signupName" name="name" placeholder="Enter your full name" required>
+                    </div>
+                    <div class="input-group">
+                        <div class="input-icon"><i class="fas fa-envelope"></i></div>
+                        <input type="email" id="signupEmail" name="email" placeholder="Enter your email" required>
+                    </div>
+                    <div class="input-group">
+                        <div class="input-icon"><i class="fas fa-lock"></i></div>
+                        <input type="password" id="signupPassword" name="password" placeholder="Create a password" required>
+                    </div>
+                    <div class="input-group">
+                        <div class="input-icon"><i class="fas fa-lock"></i></div>
+                        <input type="password" id="signupConfirmPassword" name="confirmPassword" placeholder="Confirm your password" required>
+                    </div>
+                    <button type="submit" class="cta-button modal-btn">
+                        <i class="fas fa-user-plus"></i> Create Account
+                    </button>
+                    <p class="modal-switch">Already have an account? <a href="#" id="switchToLogin">Sign In</a></p>
+                </form>
+            </div>
+        </div>
+
+        <section id="hero">
+            <div class="hero-content">
+                <div class="hero-badge">
+                    <i class="fas fa-star"></i>
+                    <span>AI-Powered Learning Platform</span>
+                </div>
+                <h1><i class="fas fa-brain"></i> Welcome to the Future of Classroom Learning</h1>
+                <p style="text-align: center; max-width: 600px; margin: 0 auto;">Discover our AI-Powered Interactive Learning Assistant designed to revolutionize education with personalized learning experiences.</p>
+                <div class="hero-buttons">
+                    <a href="courses.html" class="cta-button primary">Explore</a>
+                </div>
+            </div>
+        </section>
+
+        <section id="overview" class="animate-on-scroll" style="text-align: center;">
+            <h2><i class="fas fa-compass"></i> Discover Our Platform</h2>
+            <p>Our <i class="fas fa-rocket"></i> EduTech offers a comprehensive suite of tools to enhance the learning experience for students and educators alike. Explore our key areas:</p>
+            <div class="feature-grid">
+                <div class="feature-item overview-item glass animate-on-scroll">
+                    <div class="feature-icon"><i class="fas fa-star"></i></div>
+                    <h3>Core Features</h3>
+                    <p>Personalized learning, interactive content, real-time feedback, and robust teacher support.</p>
+                    <a href="features.html" class="cta-button-secondary">Learn More</a>
+                </div>
+                <div class="feature-item overview-item glass animate-on-scroll">
+                    <div class="feature-icon"><i class="fas fa-book-open"></i></div>
+                    <h3>Diverse Courses</h3>
+                    <p>Engaging courses in Math, Science, Languages, Coding, and more, adapted to individual needs.</p>
+                    <a href="courses.html" class="cta-button-secondary">View Courses</a>
+                </div>
+                <div class="feature-item overview-item glass animate-on-scroll">
+                    <div class="feature-icon"><i class="fas fa-play-circle"></i></div>
+                    <h3>Video Lessons</h3>
+                    <p>Access a library of high-quality video content to learn at your own pace.</p>
+                    <a href="video-lessons.html" class="cta-button-secondary">Watch Videos</a>
+                </div>
+                <div class="feature-item overview-item glass animate-on-scroll">
+                    <div class="feature-icon"><i class="fas fa-robot"></i></div>
+                    <h3>AI-Powered Practice</h3>
+                    <p>Sharpen skills with adaptive exercises and targeted feedback from our AI.</p>
+                    <a href="ai-practice.html" class="cta-button-secondary">Practice Now</a>
+                </div>
+                <div class="feature-item overview-item glass animate-on-scroll">
+                    <div class="feature-icon"><i class="fas fa-comments"></i></div>
+                    <h3>Quiz Chatbot</h3>
+                    <p>Get instant academic support and explanations from our friendly AI chatbot.</p>
+                    <a href="quiz.html" class="cta-button-secondary">Meet Quiz</a>
+                </div>
+                <div class="feature-item overview-item glass animate-on-scroll">
+                    <div class="feature-icon"><i class="fas fa-calendar-alt"></i></div>
+                    <h3>Study Planner</h3>
+                    <p>Organize your self-study schedule effectively with our personal timetable tool.</p>
+                    <a href="timetable-planner.html" class="cta-button-secondary">Plan Your Time</a>
+                </div>
+                <div class="feature-item overview-item glass animate-on-scroll">
+                    <div class="feature-icon"><i class="fas fa-video"></i></div>
+                    <h3>Virtual Classroom</h3>
+                    <p>Join live sessions with AI-powered attention monitoring to stay focused and engaged.</p>
+                    <a href="virtual-classroom.html" class="cta-button-secondary">Join Classroom</a>
+                </div>
+            </div>
+        </section>
+         <section id="how-it-works-short" class="animate-on-scroll" style="text-align: center;">
+            <h2><i class="fas fa-cogs"></i> Simple Steps to Enhanced Learning</h2>
+            <p>Getting started with our platform is easy. Follow these simple steps to begin your personalized learning journey or to empower your classroom.</p>
+            <a href="how-it-works.html" class="cta-button">See How It Works</a>
+        </section>
+
+        <section id="for-educators-short" class="animate-on-scroll" style="text-align: center;">
+            <h2><i class="fas fa-chalkboard-teacher"></i> Tools for Modern Educators</h2>
+            <p>We provide teachers with powerful tools for classroom management, performance analytics, and custom content creation to foster an engaging learning environment.</p>
+            <a href="for-educators.html" class="cta-button">Explore Educator Tools</a>
+        </section>
+
+
+
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3><i class="fas fa-brain"></i> <i class="fas fa-rocket"></i> EduTech</h3>
+                <p>Revolutionizing education through AI-powered personalized learning experiences. Join thousands of students and educators worldwide.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul class="footer-links">
+                    <li><a href="courses.html">Our Courses</a></li>
+                    <li><a href="video-lessons.html">Video Lessons</a></li>
+                    <li><a href="ai-practice.html">AI Practice</a></li>
+                    
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Support</h3>
+                <ul class="footer-links">
+                    <li><a href="how-it-works.html">How It Works</a></li>
+                    <li><a href="contact.html">Contact Us</a></li>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="#">Help Center</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Project Info</h3>
+                <p><i class="fas fa-code"></i> Built with Flask & JavaScript</p>
+                <p><i class="fas fa-graduation-cap"></i> Educational Technology Project</p>
+                <p><i class="fas fa-github"></i> Open Source Learning Platform</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>Privacy Policy | Terms of Service</p>
+        </div>
+    </footer>
+
+    <script src="auth.js"></script>
+    <script src="script-enhanced.js"></script>
+</body>
+</html>

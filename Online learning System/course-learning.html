@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Course Learning - AI Learning Assistant</title>
+    <link rel="stylesheet" href="style-dark.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo"><a href="index.html" style="color: white; text-decoration: none;">AI Learning Assistant</a></div>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li class="dropdown">
+                    <a href="features.html">Features</a>
+                    <div class="dropdown-content">
+                        <a href="ai-tutor.html">AI Tutor</a>
+                        <a href="video-lessons.html">Video Lessons</a>
+                        <a href="timetable-planner.html">Timetable Planner</a>
+                        <a href="ai-practice.html">AI Practice</a>
+                    </div>
+                </li>
+                <li><a href="courses.html">Our Courses</a></li>
+                <li><a href="how-it-works.html">How It Works</a></li>
+                <li><a href="for-educators.html">For Educators</a></li>
+                <li><a href="books.html">Book Library</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="course-learning">
+            <div class="course-header glass">
+                <h1 id="courseTitle">Mathematics Fundamentals</h1>
+                <div class="course-progress">
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 35%"></div>
+                    </div>
+                    <span class="progress-text">35% Complete</span>
+                </div>
+            </div>
+
+            <div class="learning-container">
+                <div class="video-section glass">
+                    <div class="video-player">
+                        <iframe id="courseVideo" width="100%" height="400" 
+                                src="https://www.youtube.com/embed/dQw4w9WgXcQ" 
+                                frameborder="0" allowfullscreen></iframe>
+                    </div>
+                    <div class="video-controls">
+                        <button class="control-btn" id="prevVideo"><i class="fas fa-step-backward"></i> Previous</button>
+                        <button class="control-btn" id="nextVideo">Next <i class="fas fa-step-forward"></i></button>
+                    </div>
+                </div>
+
+                <div class="course-sidebar">
+                    <div class="lesson-list glass">
+                        <h3><i class="fas fa-list"></i> Course Content</h3>
+                        <div class="lessons" id="lessonList">
+                            <!-- Lessons will be loaded here -->
+                        </div>
+                    </div>
+
+                    <div class="course-notes glass">
+                        <h3><i class="fas fa-sticky-note"></i> My Notes</h3>
+                        <textarea id="courseNotes" placeholder="Take notes while learning..."></textarea>
+                        <button class="cta-button-secondary" id="saveNotes">Save Notes</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="quiz-section glass" id="quizSection" style="display: none;">
+                <h3><i class="fas fa-question-circle"></i> Lesson Quiz</h3>
+                <div id="quizContent">
+                    <!-- Quiz questions will be loaded here -->
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 AI Learning Assistant. All rights reserved.</p>
+    </footer>
+
+    <script>
+        const courseData = {
+            math: {
+                title: 'Mathematics Fundamentals',
+                lessons: [
+                    { id: 1, title: 'Introduction to Algebra', video: 'dQw4w9WgXcQ', completed: true },
+                    { id: 2, title: 'Linear Equations', video: 'dQw4w9WgXcQ', completed: true },
+                    { id: 3, title: 'Quadratic Functions', video: 'dQw4w9WgXcQ', completed: false },
+                    { id: 4, title: 'Graphing Basics', video: 'dQw4w9WgXcQ', completed: false }
+                ]
+            },
+            science: {
+                title: 'Science Fundamentals',
+                lessons: [
+                    { id: 1, title: 'Scientific Method', video: 'dQw4w9WgXcQ', completed: false },
+                    { id: 2, title: 'Basic Chemistry', video: 'dQw4w9WgXcQ', completed: false },
+                    { id: 3, title: 'Physics Principles', video: 'dQw4w9WgXcQ', completed: false }
+                ]
+            }
+        };
+
+        let currentCourse = 'math';
+        let currentLesson = 0;
+
+        function loadCourse() {
+            const urlParams = new URLSearchParams(window.location.search);
+            currentCourse = urlParams.get('course') || 'math';
+            
+            const course = courseData[currentCourse];
+            document.getElementById('courseTitle').textContent = course.title;
+            
+            const lessonList = document.getElementById('lessonList');
+            lessonList.innerHTML = '';
+            
+            course.lessons.forEach((lesson, index) => {
+                const lessonElement = document.createElement('div');
+                lessonElement.className = `lesson-item ${lesson.completed ? 'completed' : ''} ${index === currentLesson ? 'active' : ''}`;
+                lessonElement.innerHTML = `
+                    <div class="lesson-info">
+                        <i class="fas ${lesson.completed ? 'fa-check-circle' : 'fa-play-circle'}"></i>
+                        <span>${lesson.title}</span>
+                    </div>
+                `;
+                lessonElement.addEventListener('click', () => loadLesson(index));
+                lessonList.appendChild(lessonElement);
+            });
+            
+            loadLesson(0);
+        }
+
+        function loadLesson(index) {
+            const course = courseData[currentCourse];
+            const lesson = course.lessons[index];
+            
+            if (lesson) {
+                currentLesson = index;
+                document.getElementById('courseVideo').src = `https://www.youtube.com/embed/${lesson.video}`;
+                
+                // Update active lesson
+                document.querySelectorAll('.lesson-item').forEach((item, i) => {
+                    item.classList.toggle('active', i === index);
+                });
+                
+                // Update progress
+                const completed = course.lessons.filter(l => l.completed).length;
+                const progress = (completed / course.lessons.length) * 100;
+                document.querySelector('.progress-fill').style.width = `${progress}%`;
+                document.querySelector('.progress-text').textContent = `${Math.round(progress)}% Complete`;
+            }
+        }
+
+        document.getElementById('prevVideo').addEventListener('click', () => {
+            if (currentLesson > 0) {
+                loadLesson(currentLesson - 1);
+            }
+        });
+
+        document.getElementById('nextVideo').addEventListener('click', () => {
+            const course = courseData[currentCourse];
+            if (currentLesson < course.lessons.length - 1) {
+                // Mark current lesson as completed
+                course.lessons[currentLesson].completed = true;
+                loadLesson(currentLesson + 1);
+                loadCourse(); // Refresh to show completion
+            }
+        });
+
+        document.getElementById('saveNotes').addEventListener('click', () => {
+            const notes = document.getElementById('courseNotes').value;
+            localStorage.setItem(`notes_${currentCourse}_${currentLesson}`, notes);
+            alert('Notes saved successfully!');
+        });
+
+        // Load saved notes
+        function loadNotes() {
+            const savedNotes = localStorage.getItem(`notes_${currentCourse}_${currentLesson}`);
+            if (savedNotes) {
+                document.getElementById('courseNotes').value = savedNotes;
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            loadCourse();
+            loadNotes();
+        });
+    </script>
+</body>
+</html>

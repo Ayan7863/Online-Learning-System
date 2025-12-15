@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile - AI Learning Assistant</title>
+    <link rel="stylesheet" href="style-dark.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo"><a href="index.html" style="color: white; text-decoration: none;">AI Learning Assistant</a></div>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li class="dropdown">
+                    <a href="features.html">Features</a>
+                    <div class="dropdown-content">
+                        <a href="ai-tutor.html">AI Tutor</a>
+                        <a href="video-lessons.html">Video Lessons</a>
+                        <a href="timetable-planner.html">Timetable Planner</a>
+                        <a href="ai-practice.html">AI Practice</a>
+                    </div>
+                </li>
+                <li><a href="courses.html">Our Courses</a></li>
+                <li><a href="how-it-works.html">How It Works</a></li>
+                <li><a href="for-educators.html">For Educators</a></li>
+                <li><a href="books.html">Book Library</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li class="auth-buttons" id="profileSection" style="display: none;">
+                    <button id="profileBtn" class="nav-button">Profile</button>
+                    <button id="logoutBtn" class="nav-button">Logout</button>
+                </li>
+                <li class="auth-buttons" id="authSection">
+                    <button id="loginBtnNav" class="nav-button">Login</button>
+                    <button id="signupBtnNav" class="nav-button">Sign Up</button>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="profile" class="animate-on-scroll">
+            <div class="profile-container glass">
+                <div class="profile-header">
+                    <div class="profile-avatar">
+                        <img id="profileImage" src="https://via.placeholder.com/150/6c5ce7/ffffff?text=User" alt="Profile Picture">
+                        <div class="avatar-overlay">
+                            <i class="fas fa-camera"></i>
+                        </div>
+                    </div>
+                    <div class="profile-info">
+                        <h2 id="profileName">Loading...</h2>
+                        <p id="profileEmail">Loading...</p>
+                        <p class="join-date">Member since: <span id="joinDate">Loading...</span></p>
+                    </div>
+                </div>
+                
+                <div class="profile-content">
+                    <div class="profile-section">
+                        <h3><i class="fas fa-user-edit"></i> Edit Profile</h3>
+                        <form id="profileForm">
+                            <div class="form-group">
+                                <label for="editName">Full Name</label>
+                                <input type="text" id="editName" name="name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="editBio">Bio</label>
+                                <textarea id="editBio" name="bio" rows="4" placeholder="Tell us about yourself..."></textarea>
+                            </div>
+                            <button type="submit" class="cta-button">Update Profile</button>
+                        </form>
+                    </div>
+                    
+                    <div class="profile-section">
+                        <h3><i class="fas fa-chart-line"></i> Learning Progress</h3>
+                        <div class="progress-stats">
+                            <div class="stat-card glass">
+                                <div class="stat-icon"><i class="fas fa-book"></i></div>
+                                <div class="stat-info">
+                                    <h4>Courses Completed</h4>
+                                    <p class="stat-number">5</p>
+                                </div>
+                            </div>
+                            <div class="stat-card glass">
+                                <div class="stat-icon"><i class="fas fa-clock"></i></div>
+                                <div class="stat-info">
+                                    <h4>Study Hours</h4>
+                                    <p class="stat-number">42</p>
+                                </div>
+                            </div>
+                            <div class="stat-card glass">
+                                <div class="stat-icon"><i class="fas fa-trophy"></i></div>
+                                <div class="stat-info">
+                                    <h4>Achievements</h4>
+                                    <p class="stat-number">8</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="recent-activity">
+                        <h4><i class="fas fa-history"></i> Recent Activity</h4>
+                        <div class="activity-list">
+                            <div class="activity-item">
+                                <i class="fas fa-play-circle"></i>
+                                <span>Completed "Introduction to Algebra" video</span>
+                                <small>2 hours ago</small>
+                            </div>
+                            <div class="activity-item">
+                                <i class="fas fa-brain"></i>
+                                <span>Practiced Math questions - Score: 85%</span>
+                                <small>1 day ago</small>
+                            </div>
+                            <div class="activity-item">
+                                <i class="fas fa-calendar-plus"></i>
+                                <span>Added new study block to timetable</span>
+                                <small>2 days ago</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 AI Learning Assistant. All rights reserved.</p>
+    </footer>
+
+    <script src="script-enhanced.js"></script>
+    <script>
+        // Load profile data
+        async function loadProfile() {
+            const token = localStorage.getItem('access_token');
+            if (!token) {
+                window.location.href = 'index.html';
+                return;
+            }
+
+            try {
+                const response = await fetch('http://localhost:5000/api/profile', {
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
+
+                if (response.ok) {
+                    const user = await response.json();
+                    document.getElementById('profileName').textContent = user.name;
+                    document.getElementById('profileEmail').textContent = user.email;
+                    document.getElementById('editName').value = user.name;
+                    document.getElementById('editBio').value = user.bio || '';
+                    document.getElementById('joinDate').textContent = new Date(user.created_at).toLocaleDateString();
+                } else {
+                    localStorage.removeItem('access_token');
+                    window.location.href = 'index.html';
+                }
+            } catch (error) {
+                console.error('Error loading profile:', error);
+            }
+        }
+
+        // Update profile
+        document.getElementById('profileForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const token = localStorage.getItem('access_token');
+            
+            const formData = {
+                name: document.getElementById('editName').value,
+                bio: document.getElementById('editBio').value
+            };
+
+            try {
+                const response = await fetch('http://localhost:5000/api/profile', {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: JSON.stringify(formData)
+                });
+
+                if (response.ok) {
+                    alert('Profile updated successfully!');
+                    loadProfile();
+                } else {
+                    alert('Error updating profile');
+                }
+            } catch (error) {
+                console.error('Error updating profile:', error);
+            }
+        });
+
+        // Load profile on page load
+        document.addEventListener('DOMContentLoaded', loadProfile);
+    </script>
+</body>
+</html>

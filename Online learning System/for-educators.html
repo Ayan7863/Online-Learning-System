@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For Educators - <i class="fas fa-rocket"></i> EduTech</title>
+    <link rel="stylesheet" href="style-dark.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Perfect Loading Screen -->
+    <div class="page-loader" id="pageLoader">
+        <div class="loader"></div>
+        <p style="color: var(--text-secondary); margin-top: 1rem;">Loading your learning experience...</p>
+    </div>
+    
+    <header>
+        <nav>
+            <div class="logo"><a href="index.html" style="color: #f2f9f1; text-decoration: none;"><i class="fas fa-rocket"></i> EduTech</a></div>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li class="dropdown">
+                    <a href="features.html">Features</a>
+                                        <div class="dropdown-content">
+                        <a href="video-lessons.html"><i class="fas fa-play-circle"></i> Video Lessons</a>
+                        <a href="timetable-planner.html"><i class="fas fa-calendar-alt"></i> Timetable Planner</a>
+                        <a href="ai-practice.html"><i class="fas fa-brain"></i> AI Practice</a>
+                        <a href="virtual-classroom.html"><i class="fas fa-video"></i> Virtual Classroom</a>
+                        <a href="books.html"><i class="fas fa-book"></i> Book Library</a>
+                        <a href="quiz.html"><i class="fas fa-question-circle"></i> Quiz</a>
+                    </div>
+                </li>
+                <li><a href="courses.html">Our Courses</a></li>
+                <li><a href="how-it-works.html">How It Works</a></li>
+                <li><a href="for-educators.html" class="active">For Educators</a></li>
+                
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li class="auth-buttons"><button id="loginBtnNav" class="nav-button">Login</button></li>
+                <li class="auth-buttons"><button id="signupBtnNav" class="nav-button">Sign Up</button></li>
+                                <li class="profile-menu">
+                    <button id="profileBtn" class="nav-button"><i class="fas fa-user"></i></button>
+                    <div class="profile-dropdown">
+                        <div class="profile-info">
+                            <div class="profile-avatar"><i class="fas fa-user"></i></div>
+                            <h4 class="profile-name">Student User</h4>
+                            <p class="profile-email">student@edutech.com</p>
+                        </div>
+                        <ul class="profile-links">
+                            <li><a href="profile.html"><i class="fas fa-user-cog"></i> My Profile</a></li>
+                            <li><a href="#"><i class="fas fa-chart-line"></i> Progress</a></li>
+                            <li><a href="#"><i class="fas fa-bookmark"></i> Bookmarks</a></li>
+                            <li><a href="#"><i class="fas fa-cog"></i> Settings</a></li>
+                            <li><a href="#" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <!-- Login Modal -->
+        <div id="loginModal" class="modal">
+            <div class="modal-content glass">
+                <span class="close-button" id="closeLoginModal">&times;</span>
+                <div class="modal-header">
+                    <div class="modal-icon"><i class="fas fa-sign-in-alt"></i></div>
+                    <h2>Welcome Back</h2>
+                    <p class="modal-subtitle">Sign in to your account</p>
+                </div>
+                <form id="loginForm">
+                    <div>
+                        
+                        <div class="input-group">
+                        <div class="input-icon"><i class="fas fa-envelope"></i></div>
+                        <input type="email" id="loginEmail" name="email" placeholder="Enter your email" required>
+                    </div>
+                    </div>
+                    <div>
+                        
+                        <div class="input-group">
+                        <div class="input-icon"><i class="fas fa-lock"></i></div>
+                        <input type="password" id="loginPassword" name="password" placeholder="Enter your password" required>
+                    </div>
+                    </div>
+                    <button type="submit" class="cta-button">Login</button>
+                    <p class="modal-switch">Don't have an account? <a href="#" id="switchToSignup">Sign Up</a></p>
+                </form>
+            </div>
+        </div>
+
+        <!-- Signup Modal -->
+        <div id="signupModal" class="modal">
+            <div class="modal-content glass">
+                <span class="close-button" id="closeSignupModal">&times;</span>
+                <div class="modal-header">
+                    <div class="modal-icon"><i class="fas fa-user-plus"></i></div>
+                    <h2>Join Us Today</h2>
+                    <p class="modal-subtitle">Create your learning account</p>
+                </div>
+                <form id="signupForm">
+                    <div>
+                        
+                        <input type="text" id="signupName" name="name" required>
+                    </div>
+                    <div>
+                        
+                        <input type="email" id="signupEmail" name="email" required>
+                    </div>
+                    <div>
+                        
+                        <input type="password" id="signupPassword" name="password" required>
+                    </div>
+                     <div>
+                        
+                        <input type="password" id="signupConfirmPassword" name="confirmPassword" required>
+                    </div>
+                    <button type="submit" class="cta-button">Sign Up</button>
+                    <p class="modal-switch">Already have an account? <a href="#" id="switchToLogin">Login</a></p>
+                </form>
+            </div>
+        </div>
+
+        <section id="for-educators" class="animate-on-scroll">
+            <h2><i class="fas fa-chalkboard-teacher"></i> For Educators</h2>
+            <p>Empowering teachers with cutting-edge tools to enhance classroom engagement and student performance through AI-driven insights.</p>
+            <div class="educator-features">
+                <div class="educator-feature-item glass animate-on-scroll">
+                    <div class="feature-icon"><i class="fas fa-users-cog"></i></div>
+                    <h3>Classroom Management</h3>
+                    <p>Easily create and manage classes, assign coursework, and monitor student activity with intuitive dashboards.</p>
+                </div>
+                <div class="educator-feature-item glass animate-on-scroll">
+                    <div class="feature-icon"><i class="fas fa-chart-bar"></i></div>
+                    <h3>Performance Analytics</h3>
+                    <p>Gain deep insights into student understanding and identify areas needing more attention with detailed reports.</p>
+                </div>
+                <div class="educator-feature-item glass animate-on-scroll">
+                    <div class="feature-icon"><i class="fas fa-edit"></i></div>
+                    <h3>Custom Content Creation</h3>
+                    <p>Create and share your own interactive lessons, quizzes, and assessments tailored to your curriculum.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <p></p>
+    </footer>
+    <script src="script-enhanced.js"></script>
+</body>
+</html>

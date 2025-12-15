@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI-Powered Practice - <i class="fas fa-rocket"></i> EduTech</title>
+    <link rel="stylesheet" href="style-dark.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+</head>
+<body>
+    <!-- Perfect Loading Screen -->
+    <div class="page-loader" id="pageLoader">
+        <div class="loader"></div>
+        <p style="color: var(--text-secondary); margin-top: 1rem;">Loading your learning experience...</p>
+    </div>
+    
+    <header>
+        <nav>
+            <div class="logo"><a href="index.html" style="color: #f2f9f1; text-decoration: none;"><i class="fas fa-rocket"></i> EduTech</a></div>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li class="dropdown">
+                    <a href="features.html" class="active">Features</a>
+                                        <div class="dropdown-content">
+                        <a href="video-lessons.html"><i class="fas fa-play-circle"></i> Video Lessons</a>
+                        <a href="timetable-planner.html"><i class="fas fa-calendar-alt"></i> Timetable Planner</a>
+                        <a href="ai-practice.html"><i class="fas fa-brain"></i> AI Practice</a>
+                        <a href="virtual-classroom.html"><i class="fas fa-video"></i> Virtual Classroom</a>
+                        <a href="books.html"><i class="fas fa-book"></i> Book Library</a>
+                        <a href="quiz.html"><i class="fas fa-question-circle"></i> Quiz</a>
+                    </div>
+                </li>
+                <li><a href="courses.html">Our Courses</a></li>
+                <li><a href="how-it-works.html">How It Works</a></li>
+                <li><a href="for-educators.html">For Educators</a></li>
+                
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li class="auth-buttons"><button id="loginBtnNav" class="nav-button">Login</button></li>
+                <li class="auth-buttons"><button id="signupBtnNav" class="nav-button">Sign Up</button></li>
+                                <li class="profile-menu">
+                    <button id="profileBtn" class="nav-button"><i class="fas fa-user"></i></button>
+                    <div class="profile-dropdown">
+                        <div class="profile-info">
+                            <div class="profile-avatar"><i class="fas fa-user"></i></div>
+                            <h4 class="profile-name">Student User</h4>
+                            <p class="profile-email">student@edutech.com</p>
+                        </div>
+                        <ul class="profile-links">
+                            <li><a href="profile.html"><i class="fas fa-user-cog"></i> My Profile</a></li>
+                            <li><a href="#"><i class="fas fa-chart-line"></i> Progress</a></li>
+                            <li><a href="#"><i class="fas fa-bookmark"></i> Bookmarks</a></li>
+                            <li><a href="#"><i class="fas fa-cog"></i> Settings</a></li>
+                            <li><a href="#" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Login Modal -->
+        <div id="loginModal" class="modal">
+            <div class="modal-content glass">
+                <span class="close-button" id="closeLoginModal">&times;</span>
+                <div class="modal-header">
+                    <div class="modal-icon"><i class="fas fa-sign-in-alt"></i></div>
+                    <h2>Welcome Back</h2>
+                    <p class="modal-subtitle">Sign in to your account</p>
+                </div>
+                <form id="loginForm">
+                    <div class="input-group">
+                        <div class="input-icon"><i class="fas fa-envelope"></i></div>
+                        <input type="email" id="loginEmail" name="email" placeholder="Enter your email" required>
+                        
+                    </div>
+                    <div class="input-group">
+                        <div class="input-icon"><i class="fas fa-lock"></i></div>
+                        <input type="password" id="loginPassword" name="password" placeholder="Enter your password" required>
+                        
+                    </div>
+                    <div class="form-options">
+                        <label class="checkbox-container">
+                            <input type="checkbox" id="rememberMe">
+                            <span class="checkmark"></span>
+                            Remember me
+                        </label>
+                        <a href="#" class="forgot-password">Forgot Password?</a>
+                    </div>
+                    <button type="submit" class="cta-button modal-btn">
+                        <i class="fas fa-sign-in-alt"></i> Sign In
+                    </button>
+                    <div class="modal-divider"><span>or</span></div>
+                    <button type="button" class="social-btn google-btn" id="googleLoginBtn">
+                        <i class="fab fa-google"></i> Continue with Google
+                    </button>
+                    <p class="modal-switch">Don't have an account? <a href="#" id="switchToSignup">Create Account</a></p>
+                </form>
+            </div>
+        </div>
+
+        <!-- Signup Modal -->
+        <div id="signupModal" class="modal">
+            <div class="modal-content glass">
+                <span class="close-button" id="closeSignupModal">&times;</span>
+                <div class="modal-header">
+                    <div class="modal-icon"><i class="fas fa-user-plus"></i></div>
+                    <h2>Join Us Today</h2>
+                    <p class="modal-subtitle">Create your learning account</p>
+                </div>
+                <form id="signupForm">
+                    <div class="input-group">
+                        <div class="input-icon"><i class="fas fa-user"></i></div>
+                        <input type="text" id="signupName" name="name" placeholder="Enter your full name" required>
+                        
+                    </div>
+                    <div class="input-group">
+                        <div class="input-icon"><i class="fas fa-envelope"></i></div>
+                        <input type="email" id="signupEmail" name="email" placeholder="Enter your email" required>
+                        
+                    </div>
+                    <div class="input-group">
+                        <div class="input-icon"><i class="fas fa-lock"></i></div>
+                        <input type="password" id="signupPassword" name="password" placeholder="Create a password" required>
+                        
+                    </div>
+                    <div class="input-group">
+                        <div class="input-icon"><i class="fas fa-lock"></i></div>
+                        <input type="password" id="signupConfirmPassword" name="confirmPassword" placeholder="Confirm your password" required>
+                        
+                    </div>
+                    <div class="form-options">
+                        <label class="checkbox-container">
+                            <input type="checkbox" id="agreeTerms" required>
+                            <span class="checkmark"></span>
+                            I agree to the <a href="#">Terms & Conditions</a>
+                        </label>
+                    </div>
+                    <button type="submit" class="cta-button modal-btn">
+                        <i class="fas fa-user-plus"></i> Create Account
+                    </button>
+                    <div class="modal-divider"><span>or</span></div>
+                    <button type="button" class="social-btn google-btn" id="googleSignupBtn">
+                        <i class="fab fa-google"></i> Sign up with Google
+                    </button>
+                    <p class="modal-switch">Already have an account? <a href="#" id="switchToLogin">Sign In</a></p>
+                </form>
+            </div>
+        </div>
+
+        <section id="ai-practice" class="animate-on-scroll">
+            <h2><i class="fas fa-brain"></i> AI-Powered Practice</h2>
+            <p>Sharpen your skills with adaptive exercises and get instant feedback from our AI tutor.</p>
+            
+            <div class="practice-container">
+                <div class="subject-selector glass">
+                    <h3><i class="fas fa-graduation-cap"></i> Choose Subject</h3>
+                    <div class="subject-buttons">
+                        <button class="subject-btn active" data-subject="math">
+                            <i class="fas fa-calculator"></i> Mathematics
+                        </button>
+                        <button class="subject-btn" data-subject="science">
+                            <i class="fas fa-atom"></i> Science
+                        </button>
+                        <button class="subject-btn" data-subject="english">
+                            <i class="fas fa-book"></i> English
+                        </button>
+                    </div>
+                </div>
+
+                <div class="practice-area glass">
+                    <div id="questionSection">
+                        <div class="question-header">
+                            <h3 id="questionTitle">Question 1 of 5</h3>
+                            <div class="score">Score: <span id="currentScore">0</span></div>
+                        </div>
+                        
+                        <div class="question-content">
+                            <p id="questionText">Loading question...</p>
+                            <div class="options" id="optionsContainer">
+                                <!-- Options will be loaded here -->
+                            </div>
+                        </div>
+                        
+                        <div class="question-actions">
+                            <button id="submitAnswer" class="cta-button" disabled>Submit Answer</button>
+                            <button id="nextQuestion" class="cta-button-secondary" style="display: none;">Next Question</button>
+                        </div>
+                        
+                        <div id="feedback" class="feedback" style="display: none;">
+                            <div class="feedback-content">
+                                <p id="feedbackText"></p>
+                                <p id="explanationText"></p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div id="resultsSection" style="display: none;">
+                        <div class="results-content">
+                            <h3><i class="fas fa-trophy"></i> Practice Complete!</h3>
+                            <div class="final-score">
+                                <span id="finalScore">0</span> / <span id="totalQuestions">5</span>
+                            </div>
+                            <p id="performanceMessage"></p>
+                            <button id="restartPractice" class="cta-button">Practice Again</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <p></p>
+    </footer>
+    <script src="script-enhanced.js"></script>
+    <script>
+        let currentSubject = 'math';
+        let questions = [];
+        let currentQuestionIndex = 0;
+        let score = 0;
+        let selectedAnswer = null;
+
+        // Load questions (works offline)
+        function loadQuestions(subject) {
+            const questionBank = {
+                'math': [
+                    {
+                        'id': 1,
+                        'question': 'What is 15 + 27?',
+                        'options': ['42', '41', '43', '40'],
+                        'correct': 0,
+                        'explanation': '15 + 27 = 42'
+                    },
+                    {
+                        'id': 2,
+                        'question': 'Solve for x: 2x + 5 = 13',
+                        'options': ['4', '3', '5', '6'],
+                        'correct': 0,
+                        'explanation': '2x = 13 - 5 = 8, so x = 4'
+                    },
+                    {
+                        'id': 3,
+                        'question': 'What is 8 × 7?',
+                        'options': ['54', '56', '58', '52'],
+                        'correct': 1,
+                        'explanation': '8 × 7 = 56'
+                    }
+                ],
+                'science': [
+                    {
+                        'id': 1,
+                        'question': 'What is the chemical symbol for water?',
+                        'options': ['H2O', 'CO2', 'NaCl', 'O2'],
+                        'correct': 0,
+                        'explanation': 'Water consists of 2 hydrogen atoms and 1 oxygen atom: H2O'
+                    },
+                    {
+                        'id': 2,
+                        'question': 'What planet is closest to the Sun?',
+                        'options': ['Venus', 'Mercury', 'Earth', 'Mars'],
+                        'correct': 1,
+                        'explanation': 'Mercury is the closest planet to the Sun'
+                    }
+                ],
+                'english': [
+                    {
+                        'id': 1,
+                        'question': 'What is the plural of "child"?',
+                        'options': ['childs', 'children', 'childes', 'child'],
+                        'correct': 1,
+                        'explanation': 'The plural of "child" is "children"'
+                    }
+                ]
+            };
+            
+            questions = questionBank[subject] || questionBank['math'];
+            currentQuestionIndex = 0;
+            score = 0;
+            displayQuestion();
+        }
+
+        function displayQuestion() {
+            if (currentQuestionIndex >= questions.length) {
+                showResults();
+                return;
+            }
+
+            const question = questions[currentQuestionIndex];
+            document.getElementById('questionTitle').textContent = `Question ${currentQuestionIndex + 1} of ${questions.length}`;
+            document.getElementById('questionText').textContent = question.question;
+            document.getElementById('currentScore').textContent = score;
+
+            const optionsContainer = document.getElementById('optionsContainer');
+            optionsContainer.innerHTML = '';
+
+            question.options.forEach((option, index) => {
+                const optionElement = document.createElement('div');
+                optionElement.className = 'option';
+                optionElement.innerHTML = `
+                    <input type="radio" name="answer" value="${index}" id="option${index}">
+                    
+                `;
+                optionElement.addEventListener('click', () => selectAnswer(index));
+                optionsContainer.appendChild(optionElement);
+            });
+
+            document.getElementById('feedback').style.display = 'none';
+            document.getElementById('submitAnswer').disabled = true;
+            document.getElementById('nextQuestion').style.display = 'none';
+            selectedAnswer = null;
+        }
+
+        function selectAnswer(index) {
+            selectedAnswer = index;
+            document.getElementById('submitAnswer').disabled = false;
+            
+            // Update visual selection
+            document.querySelectorAll('.option').forEach((opt, i) => {
+                opt.classList.toggle('selected', i === index);
+            });
+        }
+
+        function submitAnswer() {
+            if (selectedAnswer === null) return;
+
+            const question = questions[currentQuestionIndex];
+            const isCorrect = selectedAnswer === question.correct;
+            
+            if (isCorrect) {
+                score++;
+                document.getElementById('currentScore').textContent = score;
+            }
+
+            // Show feedback
+            const feedback = document.getElementById('feedback');
+            const feedbackText = document.getElementById('feedbackText');
+            const explanationText = document.getElementById('explanationText');
+            
+            feedbackText.textContent = isCorrect ? 'Correct!' : 'Incorrect';
+            feedbackText.className = isCorrect ? 'correct' : 'incorrect';
+            explanationText.textContent = question.explanation;
+            
+            feedback.style.display = 'block';
+            document.getElementById('submitAnswer').style.display = 'none';
+            document.getElementById('nextQuestion').style.display = 'inline-block';
+        }
+
+        function nextQuestion() {
+            currentQuestionIndex++;
+            displayQuestion();
+            document.getElementById('submitAnswer').style.display = 'inline-block';
+        }
+
+        function showResults() {
+            document.getElementById('questionSection').style.display = 'none';
+            document.getElementById('resultsSection').style.display = 'block';
+            
+            document.getElementById('finalScore').textContent = score;
+            document.getElementById('totalQuestions').textContent = questions.length;
+            
+            const percentage = (score / questions.length) * 100;
+            let message = '';
+            
+            if (percentage >= 80) {
+                message = 'Excellent work! You have a strong understanding of this subject.';
+            } else if (percentage >= 60) {
+                message = 'Good job! Keep practicing to improve further.';
+            } else {
+                message = 'Keep studying! Practice makes perfect.';
+            }
+            
+            document.getElementById('performanceMessage').textContent = message;
+        }
+
+        function restartPractice() {
+            document.getElementById('questionSection').style.display = 'block';
+            document.getElementById('resultsSection').style.display = 'none';
+            loadQuestions(currentSubject);
+        }
+
+        // Event listeners
+        document.querySelectorAll('.subject-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.subject-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                currentSubject = btn.dataset.subject;
+                loadQuestions(currentSubject);
+            });
+        });
+
+        document.getElementById('submitAnswer').addEventListener('click', submitAnswer);
+        document.getElementById('nextQuestion').addEventListener('click', nextQuestion);
+        document.getElementById('restartPractice').addEventListener('click', restartPractice);
+
+        // Load initial questions
+        document.addEventListener('DOMContentLoaded', () => {
+            loadQuestions(currentSubject);
+        });
+    </script>
+</body>
+</html>

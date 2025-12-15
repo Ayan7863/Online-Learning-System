@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal Timetable Planner - <i class="fas fa-rocket"></i> EduTech</title>
+    <link rel="stylesheet" href="style-dark.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="auth.js" defer></script>
+</head>
+<body>
+    <!-- Perfect Loading Screen -->
+    <div class="page-loader" id="pageLoader">
+        <div class="loader"></div>
+        <p style="color: var(--text-secondary); margin-top: 1rem;">Loading your learning experience...</p>
+    </div>
+    
+    <header>
+        <nav>
+            <div class="logo"><a href="index.html" style="color: #f2f9f1; text-decoration: none;"><i class="fas fa-rocket"></i> EduTech</a></div>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li class="dropdown">
+                    <a href="features.html" class="active">Features</a>
+                                        <div class="dropdown-content">
+                        <a href="video-lessons.html"><i class="fas fa-play-circle"></i> Video Lessons</a>
+                        <a href="timetable-planner.html"><i class="fas fa-calendar-alt"></i> Timetable Planner</a>
+                        <a href="ai-practice.html"><i class="fas fa-brain"></i> AI Practice</a>
+                        <a href="virtual-classroom.html"><i class="fas fa-video"></i> Virtual Classroom</a>
+                        <a href="books.html"><i class="fas fa-book"></i> Book Library</a>
+                        <a href="quiz.html"><i class="fas fa-question-circle"></i> Quiz</a>
+                    </div>
+                </li>
+                <li><a href="courses.html">Our Courses</a></li>
+                <li><a href="how-it-works.html">How It Works</a></li>
+                <li><a href="for-educators.html">For Educators</a></li>
+                
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li class="auth-buttons"><button id="loginBtnNav" class="nav-button">Login</button></li>
+                <li class="auth-buttons"><button id="signupBtnNav" class="nav-button">Sign Up</button></li>
+                                <li class="profile-menu">
+                    <button id="profileBtn" class="nav-button"><i class="fas fa-user"></i></button>
+                    <div class="profile-dropdown">
+                        <div class="profile-info">
+                            <div class="profile-avatar"><i class="fas fa-user"></i></div>
+                            <h4 class="profile-name">Student User</h4>
+                            <p class="profile-email">student@edutech.com</p>
+                        </div>
+                        <ul class="profile-links">
+                            <li><a href="profile.html"><i class="fas fa-user-cog"></i> My Profile</a></li>
+                            <li><a href="#"><i class="fas fa-chart-line"></i> Progress</a></li>
+                            <li><a href="#"><i class="fas fa-bookmark"></i> Bookmarks</a></li>
+                            <li><a href="#"><i class="fas fa-cog"></i> Settings</a></li>
+                            <li><a href="#" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <!-- Login Modal -->
+        <div id="loginModal" class="modal">
+            <div class="modal-content glass">
+                <span class="close-button" id="closeLoginModal">&times;</span>
+                <div class="modal-header">
+                    <div class="modal-icon"><i class="fas fa-sign-in-alt"></i></div>
+                    <h2>Welcome Back</h2>
+                    <p class="modal-subtitle">Sign in to your account</p>
+                </div>
+                <form id="loginForm">
+                    <div>
+                        
+                        <div class="input-group">
+                        <div class="input-icon"><i class="fas fa-envelope"></i></div>
+                        <input type="email" id="loginEmail" name="email" placeholder="Enter your email" required>
+                    </div>
+                    </div>
+                    <div>
+                        
+                        <div class="input-group">
+                        <div class="input-icon"><i class="fas fa-lock"></i></div>
+                        <input type="password" id="loginPassword" name="password" placeholder="Enter your password" required>
+                    </div>
+                    </div>
+                    <button type="submit" class="cta-button">Login</button>
+                    <p class="modal-switch">Don't have an account? <a href="#" id="switchToSignup">Sign Up</a></p>
+                </form>
+            </div>
+        </div>
+
+        <!-- Signup Modal -->
+        <div id="signupModal" class="modal">
+            <div class="modal-content glass">
+                <span class="close-button" id="closeSignupModal">&times;</span>
+                <div class="modal-header">
+                    <div class="modal-icon"><i class="fas fa-user-plus"></i></div>
+                    <h2>Join Us Today</h2>
+                    <p class="modal-subtitle">Create your learning account</p>
+                </div>
+                <form id="signupForm">
+                    <div class="input-group">
+                        <div class="input-icon"><i class="fas fa-user"></i></div>
+                        <input type="text" id="signupName" name="name" placeholder="Enter your full name" required>
+                    </div>
+                    <div class="input-group">
+                        <div class="input-icon"><i class="fas fa-envelope"></i></div>
+                        <input type="email" id="signupEmail" name="email" placeholder="Enter your email" required>
+                    </div>
+                    <div class="input-group">
+                        <div class="input-icon"><i class="fas fa-lock"></i></div>
+                        <input type="password" id="signupPassword" name="password" placeholder="Create a password" required>
+                    </div>
+                    <div class="input-group">
+                        <div class="input-icon"><i class="fas fa-lock"></i></div>
+                        <input type="password" id="signupConfirmPassword" name="confirmPassword" placeholder="Confirm your password" required>
+                    </div>
+                    <button type="submit" class="cta-button">Sign Up</button>
+                    <p class="modal-switch">Already have an account? <a href="#" id="switchToLogin">Login</a></p>
+                </form>
+            </div>
+        </div>
+
+        <section id="timetable-planner" class="animate-on-scroll">
+            <h2><i class="fas fa-calendar-alt"></i> Plan Your Self-Study Time</h2>
+            <p>Organize your learning schedule effectively with our intuitive timetable planner. Set your study goals, allocate time for different subjects, and keep track of your progress. This feature is designed to help you manage your time efficiently and stay on top of your self-study routine.</p>
+
+            <div class="feature-highlight glass animate-on-scroll">
+                <img src="https://via.placeholder.com/400x300/6c5ce7/ffffff?text=Timetable+Interface" alt="Timetable Planner Interface Mockup" class="feature-image">
+                <div class="feature-description">
+                    <h3><i class="fas fa-star"></i> Key Planner Features:</h3>
+                    <ul>
+                        <li><i class="fas fa-sliders-h"></i> <strong>Customizable Schedule:</strong> Create daily, weekly, or monthly study plans.</li>
+                        <li><i class="fas fa-book-open"></i> <strong>Subject Allocation:</strong> Assign specific time slots for different courses or topics.</li>
+                        <li><i class="fas fa-bullseye"></i> <strong>Goal Setting:</strong> Define learning objectives for each study session.</li>
+                        <li><i class="fas fa-bell"></i> <strong>Reminders & Notifications:</strong> Get alerts for upcoming study blocks (future update).</li>
+                        <li><i class="fas fa-chart-line"></i> <strong>Progress Tracking:</strong> Mark completed sessions and visualize your consistency.</li>
+                    </ul>
+                    <button id="startPlanningBtn" class="cta-button">Start Planning</button>
+                </div>
+            </div>
+
+            <div id="timetableContainer" class="glass" style="margin-top: 3rem; display: none; padding: 2rem; border-radius: 15px;">
+                <h3><i class="fas fa-table"></i> My Weekly Timetable</h3>
+                <div id="addBlockFormContainer" class="glass" style="margin-bottom: 2rem; padding: 1.5rem; border-radius: 10px; text-align:left;">
+                    <h4><i class="fas fa-plus-circle"></i> Add New Study Block</h4>
+                    <form id="addBlockForm" style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                        <div>
+                            <label style="display: block; margin-bottom: 0.5rem; color: var(--text-primary);">Day:</label>
+                            <select id="blockDay" name="day" required style="width: 100%; padding: 0.75rem; background: rgba(255,255,255,0.05); border: 1px solid var(--glass-border); border-radius: 8px; color: var(--text-primary);">
+                                <option value="Monday">Monday</option>
+                                <option value="Tuesday">Tuesday</option>
+                                <option value="Wednesday">Wednesday</option>
+                                <option value="Thursday">Thursday</option>
+                                <option value="Friday">Friday</option>
+                                <option value="Saturday">Saturday</option>
+                                <option value="Sunday">Sunday</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label style="display: block; margin-bottom: 0.5rem; color: var(--text-primary);">Time:</label>
+                            <input type="time" id="blockTime" name="time" required style="width: 100%; padding: 0.75rem; background: rgba(255,255,255,0.05); border: 1px solid var(--glass-border); border-radius: 8px; color: var(--text-primary);">
+                        </div>
+                        <div>
+                            <label style="display: block; margin-bottom: 0.5rem; color: var(--text-primary);">Subject/Book:</label>
+                            <input type="text" id="blockSubject" name="subject" placeholder="e.g., Mathematics, Physics Book" required style="width: 100%; padding: 0.75rem; background: rgba(255,255,255,0.05); border: 1px solid var(--glass-border); border-radius: 8px; color: var(--text-primary);">
+                        </div>
+                        <div>
+                            <label style="display: block; margin-bottom: 0.5rem; color: var(--text-primary);">Duration (hours):</label>
+                            <input type="number" id="blockDuration" name="duration" min="0.5" step="0.5" value="1" required style="width: 100%; padding: 0.75rem; background: rgba(255,255,255,0.05); border: 1px solid var(--glass-border); border-radius: 8px; color: var(--text-primary);">
+                        </div>
+                        <div style="grid-column: 1 / -1; margin-top: 1rem;">
+                            <button type="submit" class="cta-button" style="width: 100%;">Add Study Block</button>
+                        </div>
+                    </form>
+                </div>
+
+                <div id="alertSettingsContainer" class="glass" style="margin-bottom: 2rem; padding: 1.5rem; border-radius: 10px; text-align:left;">
+                    <h4><i class="fas fa-cog"></i> Alert Settings</h4>
+                    <label class="switch">
+                        <input type="checkbox" id="enableAlertsToggle">
+                        <span class="slider round"></span>
+                    </label>
+                    <span style="margin-left: 0.5rem;">Enable Study Reminders</span>
+                    <p style="font-size: 0.8em; color: #7f8c8d; margin-top: 0.5rem;">(Login required to save alert preferences and receive notifications)</p>
+                </div>
+
+                <table id="weeklyTimetable" class="timetable-table">
+                    <thead>
+                        <tr>
+                            <th>Time</th>
+                            <th>Monday</th>
+                            <th>Tuesday</th>
+                            <th>Wednesday</th>
+                            <th>Thursday</th>
+                            <th>Friday</th>
+                            <th>Saturday</th>
+                            <th>Sunday</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Time slots will be dynamically generated by JS -->
+                        <!-- Example: <tr><td>09:00 - 10:00</td><td></td><td></td>...</tr> -->
+                    </tbody>
+                </table>
+                <p style="margin-top: 1rem; font-size: 0.9em;"><em>Click "Start Planning" to reveal the interactive timetable. Add study blocks using the form.</em></p>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <p></p>
+    </footer>
+    <script src="script-enhanced.js"></script>
+    <script>
+        let timetableData = [];
+
+        async function loadTimetable() {
+            const token = localStorage.getItem('access_token');
+            if (!token) return;
+
+            try {
+                const response = await fetch('http://localhost:5000/api/timetable', {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                if (response.ok) {
+                    timetableData = await response.json();
+                    renderTimetable();
+                }
+            } catch (error) {
+                console.error('Error loading timetable:', error);
+            }
+        }
+
+        async function addTimetableEntry(data) {
+            const token = localStorage.getItem('access_token');
+            if (!token) {
+                alert('Please login to save your timetable');
+                return;
+            }
+
+            try {
+                const response = await fetch('http://localhost:5000/api/timetable', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: JSON.stringify(data)
+                });
+
+                if (response.ok) {
+                    alert('Study block added successfully!');
+                    loadTimetable();
+                } else {
+                    alert('Error adding study block');
+                }
+            } catch (error) {
+                alert('Error connecting to server');
+            }
+        }
+
+        function renderTimetable() {
+            const tbody = document.querySelector('#weeklyTimetable tbody');
+            tbody.innerHTML = '';
+            
+            const timeSlots = [];
+            for (let hour = 6; hour <= 22; hour++) {
+                const timeStr = `${hour.toString().padStart(2, '0')}:00`;
+                const nextHour = `${(hour + 1).toString().padStart(2, '0')}:00`;
+                timeSlots.push({ time: timeStr, display: `${timeStr} - ${nextHour}` });
+            }
+            
+            timeSlots.forEach(slot => {
+                const row = document.createElement('tr');
+                row.innerHTML = `<td style="font-weight: 600; color: var(--accent-blue);">${slot.display}</td>`;
+                
+                ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'].forEach(day => {
+                    const cell = document.createElement('td');
+                    // Match time formats - handle both HH:MM and H:MM
+                    const entry = timetableData.find(e => {
+                        if (e.day !== day) return false;
+                        // Normalize time format for comparison
+                        const normalizeTime = (time) => {
+                            if (!time) return '';
+                            const parts = time.split(':');
+                            return `${parts[0].padStart(2, '0')}:${parts[1] || '00'}`;
+                        };
+                        return normalizeTime(e.time) === normalizeTime(slot.time);
+                    });
+                    
+                    if (entry) {
+                        cell.innerHTML = `
+                            <div class="study-block" style="cursor: pointer; transition: all 0.3s ease;">
+                                <strong>${entry.subject}</strong><br>
+                                <small><i class="fas fa-clock"></i> ${entry.duration}h</small>
+                            </div>
+                        `;
+                    } else {
+                        cell.innerHTML = '<div style="height: 60px; display: flex; align-items: center; justify-content: center; color: var(--text-muted); font-size: 0.8rem;">Free</div>';
+                    }
+                    row.appendChild(cell);
+                });
+                tbody.appendChild(row);
+            });
+        }
+
+        document.getElementById('startPlanningBtn').addEventListener('click', () => {
+            document.getElementById('timetableContainer').style.display = 'block';
+            renderTimetable(); // Show empty timetable first
+            loadTimetable();
+        });
+
+        document.getElementById('addBlockForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const formData = new FormData(e.target);
+            const data = {
+                day: formData.get('day'),
+                time: formData.get('time'),
+                subject: formData.get('subject'),
+                duration: parseFloat(formData.get('duration'))
+            };
+            
+            addTimetableEntry(data);
+            e.target.reset();
+        });
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const token = localStorage.getItem('access_token');
+            if (token) {
+                loadTimetable();
+            }
+        });
+    </script>
+</body>
+</html>

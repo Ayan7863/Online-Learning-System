@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Chatbot - <i class="fas fa-brain"></i> Digital Learning</title>
+    <link rel="stylesheet" href="style-dark.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Perfect Loading Screen -->
+    <div class="page-loader" id="pageLoader">
+        <div class="loader"></div>
+        <p style="color: var(--text-secondary); margin-top: 1rem;">Loading your learning experience...</p>
+    </div>
+    
+    <header>
+        <nav>
+            <div class="logo"><a href="index.html" style="color: #f2f9f1; text-decoration: none;"><i class="fas fa-brain"></i> Digital Learning</a></div>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li class="dropdown">
+                    <a href="features.html" class="active">Features</a>
+                    <div class="dropdown-content">
+                        <a href="quiz.html"><i class="fas fa-comments"></i> Quiz</a>
+                        <a href="video-lessons.html"><i class="fas fa-play-circle"></i> Video Lessons</a>
+                        <a href="timetable-planner.html"><i class="fas fa-calendar-alt"></i> Timetable Planner</a>
+                        <a href="ai-practice.html"><i class="fas fa-brain"></i> AI Practice</a>
+                    </div>
+                </li>
+                <li><a href="courses.html">Our Courses</a></li>
+                <li><a href="how-it-works.html">How It Works</a></li>
+                <li><a href="for-educators.html">For Educators</a></li>
+                
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li class="auth-buttons"><button id="loginBtnNav" class="nav-button">Login</button></li>
+                <li class="auth-buttons"><button id="signupBtnNav" class="nav-button">Sign Up</button></li>
+                <li class="profile-menu"><button id="profileBtn" class="nav-button"><i class="fas fa-user-circle"></i> Profile</button></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <!-- Login Modal -->
+        <div id="loginModal" class="modal">
+            <div class="modal-content glass">
+                <span class="close-button" id="closeLoginModal">&times;</span>
+                <div class="modal-header">
+                    <div class="modal-icon"><i class="fas fa-sign-in-alt"></i></div>
+                    <h2>Welcome Back</h2>
+                    <p class="modal-subtitle">Sign in to your account</p>
+                </div>
+                <form id="loginForm">
+                    <div>
+                        
+                        <div class="input-group">
+                        <div class="input-icon"><i class="fas fa-envelope"></i></div>
+                        <input type="email" id="loginEmail" name="email" placeholder="Enter your email" required>
+                    </div>
+                    </div>
+                    <div>
+                        
+                        <div class="input-group">
+                        <div class="input-icon"><i class="fas fa-lock"></i></div>
+                        <input type="password" id="loginPassword" name="password" placeholder="Enter your password" required>
+                    </div>
+                    </div>
+                    <button type="submit" class="cta-button">Login</button>
+                    <p class="modal-switch">Don't have an account? <a href="#" id="switchToSignup">Sign Up</a></p>
+                </form>
+            </div>
+        </div>
+
+        <!-- Signup Modal -->
+        <div id="signupModal" class="modal">
+            <div class="modal-content glass">
+                <span class="close-button" id="closeSignupModal">&times;</span>
+                <div class="modal-header">
+                    <div class="modal-icon"><i class="fas fa-user-plus"></i></div>
+                    <h2>Join Us Today</h2>
+                    <p class="modal-subtitle">Create your learning account</p>
+                </div>
+                <form id="signupForm">
+                    <div>
+                        
+                        <input type="text" id="signupName" name="name" required>
+                    </div>
+                    <div>
+                        
+                        <input type="email" id="signupEmail" name="email" required>
+                    </div>
+                    <div>
+                        
+                        <input type="password" id="signupPassword" name="password" required>
+                    </div>
+                     <div>
+                        
+                        <input type="password" id="signupConfirmPassword" name="confirmPassword" required>
+                    </div>
+                    <button type="submit" class="cta-button">Sign Up</button>
+                    <p class="modal-switch">Already have an account? <a href="#" id="switchToLogin">Login</a></p>
+                </form>
+            </div>
+        </div>
+
+        <section id="ai-tutor" class="animate-on-scroll">
+            <h2><i class="fas fa-robot"></i> Meet Your Quiz Chatbot</h2>
+            <p>Our proposed AI-powered chatbot offers instant, 24/7 academic support. Students can ask questions, get explanations, and practice concepts in a conversational way.</p>
+            <div class="feature-highlight glass animate-on-scroll">
+                <img src="https://via.placeholder.com/400x250/6c5ce7/ffffff?text=AI+Chatbot+Interface" alt="Quiz Chatbot Interface Mockup" class="feature-image">
+                <div class="feature-description">
+                    <h3><i class="fas fa-magic"></i> Key Capabilities:</h3>
+                    <ul>
+                        <li><i class="fas fa-bolt"></i> <strong>Instant Answers:</strong> Get help with homework and tricky concepts anytime.</li>
+                        <li><i class="fas fa-list-ol"></i> <strong>Step-by-Step Explanations:</strong> Understand complex topics with clear, guided walkthroughs.</li>
+                        <li><i class="fas fa-user-graduate"></i> <strong>Personalized Practice:</strong> Receive tailored quizzes and exercises based on your learning needs.</li>
+                        <li><i class="fas fa-shield-alt"></i> <strong>Safe & Supportive:</strong> A friendly, non-judgmental environment for learning.</li>
+                        <li><i class="fas fa-books"></i> <strong>Multi-Subject Support:</strong> Assistance across various subjects offered on our platform.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="chat-interface-mockup glass animate-on-scroll" style="margin-top: 3rem;">
+                <h3><i class="fas fa-comments"></i> Quiz Chat</h3>
+                <div id="chatWindow" class="chat-window">
+                    <div class="message ai-message">
+                        <p>Hello! I'm your Quiz. How can I help you with your studies today?</p>
+                    </div>
+                </div>
+                <div class="chat-input-area">
+                    <input type="text" id="userInput" placeholder="Ask a question about Math, Science, etc..." maxlength="500">
+                    <button id="sendMessageBtn" class="cta-button">Send</button>
+                </div>
+                <div class="chat-status" id="chatStatus" style="display: none;">
+                    <i class="fas fa-spinner fa-spin"></i> AI is thinking...
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <p></p>
+    </footer>
+    <script src="script-enhanced.js"></script>
+    <script>
+        async function sendMessage() {
+            const input = document.getElementById('userInput');
+            const message = input.value.trim();
+            
+            if (!message) return;
+
+            addMessageToChat(message, 'user');
+            input.value = '';
+            document.getElementById('sendMessageBtn').disabled = true;
+
+            // AI responses without backend dependency
+            const responses = {
+                'hello': 'Hello! I\'m your AI tutor. How can I help you learn today?',
+                'math': 'I can help you with mathematics! What specific topic would you like to work on? Algebra, geometry, calculus?',
+                'science': 'Science is fascinating! Which area interests you - physics, chemistry, or biology?',
+                'physics': 'Physics explains how the world works! What physics concept would you like to explore?',
+                'chemistry': 'Chemistry is the study of matter and reactions. What chemistry topic can I help with?',
+                'biology': 'Biology is the study of life! What biological concept would you like to learn about?',
+                'history': 'History helps us understand the past. What historical period interests you?',
+                'english': 'English language arts covers reading, writing, and communication. How can I assist?',
+                'programming': 'Programming is a valuable skill! Which programming language would you like to learn?',
+                'help': 'I can assist with Math, Science, History, English, and Programming. Just ask me a question!',
+                'homework': 'I\'d be happy to help with your homework! What subject is it for?',
+                'study': 'Great that you want to study! What subject would you like to focus on?'
+            };
+
+            // Find matching response
+            let response = 'I\'m here to help you learn! Could you be more specific about what subject you\'d like to study? I can help with Math, Science, History, English, and Programming.';
+            
+            const lowerMessage = message.toLowerCase();
+            for (const [keyword, reply] of Object.entries(responses)) {
+                if (lowerMessage.includes(keyword)) {
+                    response = reply;
+                    break;
+                }
+            }
+
+            // Simulate thinking delay
+            setTimeout(() => {
+                addMessageToChat(response, 'ai');
+                document.getElementById('sendMessageBtn').disabled = false;
+            }, 1000);
+        }
+
+        function addMessageToChat(message, sender) {
+            const chatWindow = document.getElementById('chatWindow');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${sender}-message`;
+            messageDiv.innerHTML = `<p>${message}</p>`;
+            chatWindow.appendChild(messageDiv);
+            chatWindow.scrollTop = chatWindow.scrollHeight;
+        }
+
+        document.getElementById('sendMessageBtn').addEventListener('click', sendMessage);
+        document.getElementById('userInput').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') sendMessage();
+        });
+    </script>
+    <script>
+        let chatHistory = [];
+
+        async function sendMessage() {
+            const input = document.getElementById('userInput');
+            const message = input.value.trim();
+            
+            if (!message) return;
+            
+            const token = localStorage.getItem('access_token');
+            if (!token) {
+                alert('Please login to chat with the Quiz');
+                return;
+            }
+
+            // Add user message to chat
+            addMessageToChat(message, 'user');
+            input.value = '';
+            
+            // Show loading status
+            document.getElementById('chatStatus').style.display = 'block';
+            document.getElementById('sendMessageBtn').disabled = true;
+
+            try {
+                const response = await fetch('http://localhost:5000/api/ai-tutor', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: JSON.stringify({ message })
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    addMessageToChat(data.response, 'ai');
+                } else {
+                    addMessageToChat('Sorry, I encountered an error. Please try again.', 'ai');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                addMessageToChat('Sorry, I\'m having trouble connecting. Please try again later.', 'ai');
+            } finally {
+                document.getElementById('chatStatus').style.display = 'none';
+                document.getElementById('sendMessageBtn').disabled = false;
+            }
+        }
+
+        function addMessageToChat(message, sender) {
+            const chatWindow = document.getElementById('chatWindow');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${sender}-message`;
+            messageDiv.innerHTML = `<p>${message}</p>`;
+            
+            chatWindow.appendChild(messageDiv);
+            chatWindow.scrollTop = chatWindow.scrollHeight;
+            
+            // Add to history
+            chatHistory.push({ message, sender, timestamp: new Date() });
+        }
+
+        // Event listeners
+        document.getElementById('sendMessageBtn').addEventListener('click', sendMessage);
+        
+        document.getElementById('userInput').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
+        });
+
+        // Auto-focus input
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('userInput').focus();
+        });
+    </script>
+</body>
+</html>
